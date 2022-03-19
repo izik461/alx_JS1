@@ -4,12 +4,12 @@ const products = [
     { name: "Chocolate", pricePerUnit: 5, quantity: 2 },
   ];
   
-  function sumItems() {
+  function sumItems(items) {
       let totalValue = 0;
 
-      for (const aProduct of products) {
+      for (const anItem of items) {
           //TODO: check if pricePerUnit/quantity exists - stupid JS nullability
-        totalValue += (aProduct.pricePerUnit*aProduct.quantity);
+        totalValue += (anItem.pricePerUnit*anItem.quantity);
       }
       return totalValue;
   }
