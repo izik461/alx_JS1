@@ -8,10 +8,11 @@ const products = [
       let totalValue = 0;
 
       for (const aProduct of products) {
-        totalValue += aProduct.pricePerUnit;
+          //TODO: check if pricePerUnit/quantity exists - stupid JS nullability
+        totalValue += (aProduct.pricePerUnit*aProduct.quantity);
       }
       return totalValue;
   }
   
   let result = sumItems(products) //powinno zwrócić 16.27
-  print('The sum is: ' + result);
+  console.log('The sum is: ' + result);
