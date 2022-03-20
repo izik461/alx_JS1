@@ -4,10 +4,8 @@ import ReactDOM from "react-dom";
 
 import { App } from "./App/App";
 
-// alert("Hello world from index.js");
-
 ReactDOM.render(
-  App,
+  <App />, // == App(),
   // <div>Hello world from reactDom.render</div>, // jaki html wklejamy
   document.querySelector("#app") // i gdzie
 );
