@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TodoList from "../TodoList/TodoList";
 
 const TODO_ARRAY = [
@@ -12,6 +12,14 @@ const TODO_ARRAY = [
 export const App = () => {
   const [inputValue, setInputValue] = useState("");
   const [todos, setTodos] = useState(TODO_ARRAY);
+
+  // useEffect(() => {}, [todos]); // uruchomienie przy kazdej zmianie todos
+  // useEffect(() => {
+  //   console.log("Useffect uruchomiony po zaladowaniu");
+  //   const lsTodos = localStorage.getItem("todos") ?? [];
+  //   // todos = lsTodos;
+  // }, []);
+  // todos;
 
   const handleInputChange = (event) => {
     console.log("App.jsx HandleInputChange fired: " + event.target.value);
