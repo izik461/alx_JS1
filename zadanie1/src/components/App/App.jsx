@@ -1,25 +1,17 @@
 import React, { useState, useEffect } from "react";
 import TodoList from "../TodoList/TodoList";
 
-const TODO_ARRAY = [
-  {
-    name: "Zadanie 1",
-    checked: false,
-  },
-  { name: "Zadanie 2", checked: true },
-];
-
 export const App = () => {
   const [inputValue, setInputValue] = useState("");
-  const [todos, setTodos] = useState(TODO_ARRAY);
+  const [todos, setTodos] = useState([]);
 
   // useEffect(() => {}, [todos]); // uruchomienie przy kazdej zmianie todos
-  // useEffect(() => {
-  //   console.log("Useffect uruchomiony po zaladowaniu");
-  //   const lsTodos = localStorage.getItem("todos") ?? [];
-  //   // todos = lsTodos;
-  // }, []);
-  // todos;
+  useEffect(() => {
+    const lsTodos = localStorage.getItem("todos") ?? [];
+    console.log("localStorage todos at load: " + lsTodos);
+
+    setTodos(JSON.parse(lsTodos));
+  }, []);
 
   const handleInputChange = (event) => {
     console.log("App.jsx HandleInputChange fired: " + event.target.value);
@@ -34,15 +26,16 @@ export const App = () => {
       alert("Input not valid. Length<2");
       return;
     }
-
-    setTodos([
+    const newTodos = [
       ...todos,
       {
         name: inputValue,
         checked: false,
       },
-    ]);
+    ];
+    setTodos(newTodos);
     setInputValue("");
+    localStorage.setItem("todos", JSON.stringify(newTodos));
   };
 
   return (
@@ -59,7 +52,7 @@ export const App = () => {
           Send todo
         </button>
       </form>
-      <TodoList todoList={TODO_ARRAY} />
+      <TodoList todoList={todos} />
     </div>
   );
 };

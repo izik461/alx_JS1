@@ -1,8 +1,6 @@
 import React from "react";
 
 const TodoList = (props) => {
-  // lub const { todos } = props - destrukturyzacja
-
   return (
     <ul>
       {/* <li>Some sample element</li> */}
