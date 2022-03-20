@@ -1,0 +1,12 @@
+.minor {
+  font-size: 10px;
+}
+
+.major {
+  font-size: 20px;
+}
+
+.critical {
+  color: red;
+  font-size: 20px;
+}
