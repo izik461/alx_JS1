@@ -51,13 +51,25 @@ const App = () => {
   }, []);
 
   const loadTodos = () => {
-    const todosFromLS = JSON.parse(localStorage.getItem('todos')) ?? [];
-    setTodos(todosFromLS);
+    // window.fetch('http://localhost:3003/todos')
+    //   .then(response => {
+    //     console.log('Received response: ', response)
+    //     const todosFromJsonServer = JSON.parse(response.json());
+    //     console.log('parsed todos: ', todosFromJsonServer);
+    //     setTodos(todosFromJsonServer);
+    //   })
+    //   .catch(error => {
+    //     console.error('An error occured while fetching todos :( ', error)
+    //     // setTodos() //TODO:JS?
+    //   })
+
+    // // const todosFromLS = JSON.parse(localStorage.getItem('todos')) ?? [];
+    // // setTodos(todosFromLS);
   }
 
   const saveTodos = (newTodos) => {
     setTodos(newTodos);
-    localStorage.setItem('todos', JSON.stringify(newTodos));
+    // localStorage.setItem('todos', JSON.stringify(newTodos));
   }
 
   const handleInputChange = (event) => {
