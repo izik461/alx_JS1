@@ -26,6 +26,11 @@ const server = http.createServer((request, response) => {
           return response.end()
         })
     }
+
+    if (request.method === 'POST') {
+      //TODO:JS tutaj odczyt pliku - json.parse -> push
+      // fsp.writeFile z nowym jsonem
+    }
   }
 
   response.writeHead(404, { contentType: "application/json" })
