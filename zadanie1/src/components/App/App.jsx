@@ -86,15 +86,24 @@ const App = () => {
     setInputValue('');
   };
 
+  const handleRemove = (name) => {
+    console.log('Delete button tapped: ', name);
+    const todosWithoutDeletedElement = todos.filter(todo => {
+      return todo.name !== name;
+    })
+    console.log('New elements: ', todosWithoutDeletedElement)
+    setTodos(todosWithoutDeletedElement)
+    localStorage.setItem('todos', JSON.stringify(todosWithoutDeletedElement));
+  }
   return (<div>
-  <h1>Todo list</h1>
-  <form onSubmit={handleSubmit}>
-    <input type="text" placeholder="Write todo" value={inputValue} onChange={handleInputChange}/>
-    <button type="submit">send todo</button>
-    {isErrorMessage ? <p className={styles.error}>Za malo znaków. Minimum 3</p> : null}
-  </form>
-  <TodoList todoList={todos}/>
-</div>);
+    <h1>Todo list</h1>
+    <form onSubmit={handleSubmit}>
+      <input type="text" placeholder="Write todo" value={inputValue} onChange={handleInputChange} />
+      <button type="submit">send todo</button>
+      {isErrorMessage ? <p className={styles.error}>Za malo znaków. Minimum 3</p> : null}
+    </form>
+    <TodoList todoList={todos} onRemove={handleRemove} />
+  </div>);
 };
 
 export default App;
