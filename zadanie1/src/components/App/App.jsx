@@ -47,9 +47,18 @@ const App = () => {
 
   useEffect(() => {
     // nullish operator ?? []
+    loadTodos()
+  }, []);
+
+  const loadTodos = () => {
     const todosFromLS = JSON.parse(localStorage.getItem('todos')) ?? [];
     setTodos(todosFromLS);
-  }, []);
+  }
+
+  const saveTodos = (newTodos) => {
+    setTodos(newTodos);
+    localStorage.setItem('todos', JSON.stringify(newTodos));
+  }
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
@@ -94,8 +103,7 @@ const App = () => {
       return todo.uuid !== uuid;
     })
     // console.log('New elements: ', todosWithoutDeletedElement)
-    setTodos(todosWithoutDeletedElement)
-    localStorage.setItem('todos', JSON.stringify(todosWithoutDeletedElement));
+    saveTodos(todosWithoutDeletedElement)
   }
 
   const handleToggleCheck = (uuid) => {
@@ -108,8 +116,7 @@ const App = () => {
     const changedTodos = [...todos];
     changedTodos[indexOfTodo].checked = !changedTodos[indexOfTodo].checked
     // console.log('Updated after toggle: ', todos)
-    setTodos(changedTodos);
-    localStorage.setItem('todos', JSON.stringify(todos));
+    saveTodos(changedTodos);
   }
 
   return (<div>
