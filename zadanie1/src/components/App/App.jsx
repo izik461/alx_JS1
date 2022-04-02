@@ -84,36 +84,51 @@ const App = () => {
       setIsErrorMessage(true);
       return;
     }
-
+    const newTodo = {
+      id: uuidv4(),
+      name: inputValue,
+      checked: false,
+    }
     const newTodos = [
       ...todos,
-      {
-        uuid: uuidv4(),
-        name: inputValue,
-        checked: false,
-      },
+      newTodo
     ];
 
-    setTodos(newTodos);
-    localStorage.setItem('todos', JSON.stringify(newTodos));
-
-
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newTodo)
+    };
+    fetch('http://localhost:3003/todos', requestOptions)
+      .then(response => response.json())
+      .then(data =>
+        console.log('created TODO:', data));
+    saveTodos(newTodos);
     setInputValue('');
   };
 
-  const handleRemove = (uuid) => {
-    // console.log('App - Delete button tapped: ', uuid);
+  const handleRemove = (id) => {
+    console.log('App - Delete button tapped: ', id);
     const todosWithoutDeletedElement = todos.filter(todo => {
-      return todo.uuid !== uuid;
+      return todo.id !== id;
     })
     // console.log('New elements: ', todosWithoutDeletedElement)
+    const requestOptions = {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(id)
+    };
+    fetch('http://localhost:3003/todos', requestOptions)
+      .then(response => response.json())
+      .then(data =>
+        console.log('removed TODO:', data));
     saveTodos(todosWithoutDeletedElement)
   }
 
-  const handleToggleCheck = (uuid) => {
-    console.log('App - toggle checkbox: ', uuid);
+  const handleToggleCheck = (id) => {
+    console.log('App - toggle checkbox: ', id);
     const indexOfTodo = todos.findIndex((todo) => {
-      return todo.uuid == uuid;
+      return todo.id == id;
     })
     const todoToBeChanged = todos[indexOfTodo];
     console.log("Will toggle element: ", todoToBeChanged)

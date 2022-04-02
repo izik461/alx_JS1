@@ -1,7 +1,14 @@
 {
-   "todos": [{
-      "uuid": "1234567890",
+  "todos": [
+    {
+      "id": "1",
       "name": "TODO1_name",
       "checked": false
-   }]
+    },
+    {
+      "id": "e6dcf7ef-6470-4f52-898a-1fc86b742fc6",
+      "name": "123",
+      "checked": false
+    }
+  ]
 }
