@@ -4,6 +4,8 @@ import { v4 as uuidv4 } from 'uuid';
 
 import styles from './App.module.css';
 
+const axios = require('axios');
+
 // ES6 Destructurization
 
 // useState()
@@ -69,6 +71,10 @@ const App = () => {
 
   const saveTodos = (newTodos) => {
     setTodos(newTodos);
+
+    // module.exports = () => {
+    //   return newTodos
+    // }
     // localStorage.setItem('todos', JSON.stringify(newTodos));
   }
 
@@ -85,19 +91,21 @@ const App = () => {
       return;
     }
 
-    const newTodos = [
-      ...todos,
-      {
-        uuid: uuidv4(),
-        name: inputValue,
-        checked: false,
-      },
-    ];
+    const newTodo = {
+      uuid: uuidv4(),
+      name: inputValue,
+      checked: false,
+    }
 
-    setTodos(newTodos);
-    localStorage.setItem('todos', JSON.stringify(newTodos));
-
-
+    axios.post('http://localhost:3003/todos',
+      newTodo)
+      .then(resp => {
+        console.log(resp.data);
+      }).catch(error => {
+        console.log(error);
+      });
+    const newTodos = [...todos, newTodo]
+    saveTodos(newTodos)
     setInputValue('');
   };
 
