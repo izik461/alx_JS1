@@ -1,11 +1,29 @@
-import React from "react"; // - składnia JS Modules
-// const React = require('react') - składnia Common.JS - wymusza type="module" w index.html
-import ReactDOM from "react-dom";
+// const React = require('react') // Common.JS
 
-import { App } from "./App/App";
+import React from 'react'; // JS Modules
+import ReactDOM from 'react-dom';
+
+import App from './App/App.jsx';
+
+import '../components/styles/main.css';
+
+// JS vs JSX
+// const value = 'Damian';
+
+// const newTodo = `<li> ${value} </li>`; // Template String
+// const newTodoJSX = <li> {value} </li>;
+
+// class vs className
+
+// const todo = <li class="completed"></li>
+// const todoJSX = <li className="completed"></li>
+
+// style
+
+// const todo = <li className="completed" style="padding: 20px;"></li>;
+// const todoJSX = <li className="completed" style={{ padding: '20px' }}></li>;
 
 ReactDOM.render(
-  <App />, // == App(),
-  // <div>Hello world from reactDom.render</div>, // jaki html wklejamy
-  document.querySelector("#app") // i gdzie
+  <App />,
+  document.querySelector('#app'),
 );

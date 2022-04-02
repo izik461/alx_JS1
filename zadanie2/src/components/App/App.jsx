@@ -1,4 +1,5 @@
 import React from 'react';
+import Chat from '../Chat/Chat';
 
 // Twoim zadaniem jest napisanie aplikacji typu chat, skladajacej sie z 2 komponentow: App i Chat.
 
@@ -16,7 +17,10 @@ import React from 'react';
 // mniej wiecej https://www.chip.pl/wp-content/uploads/2008/11/4e8ac7a1d3587e40c02c2333c9e1365e.jpg
 
 function App() {
-  return <div>hello world</div>;
+  return (<div>
+    <h1>Header App</h1>
+    <Chat chatEntries={chatEntries} />
+  </div>);
 }
 
 export default App;

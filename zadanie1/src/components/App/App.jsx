@@ -1,39 +1,68 @@
-import React, { useState, useEffect } from "react";
-import TodoList from "../TodoList/TodoList";
+import React, { useState, useEffect } from 'react';
+import TodoList from '../TodoList/TodoList.jsx';
 
-import styles from "./App.module.css";
+import styles from './App.module.css';
 
-export const App = () => {
-  const [inputValue, setInputValue] = useState("");
+// ES6 Destructurization
+
+// useState()
+// React.useState
+
+// Destukturyzacja tablic
+
+// const cars = ['Mercedes', 'Audi', 'BMW'];
+// console.log(cars[0]) // Audi
+// console.log(cars[1]) // Mercedes
+
+// const mercedes = cars[0]
+// const audi = cars[1]
+
+// const [mercedes, audi, bmw] = cars
+
+// To jest zle, bo liczy sie index z tablicy bazowej
+
+// const [audi, bmw] = cars
+
+// Destrukturyzacja obiektow
+
+// const person = {
+//   name: 'Damian',
+//   city: Warsaw,
+//   shoe: 43
+// };
+
+// console.log(person.name)
+// console.log(person.city)
+
+// const { name } = person;
+// console.log(name) //person.name
+
+// const { name : differentValue } = person
+
+const App = () => {
+  const [inputValue, setInputValue] = useState('');
   const [todos, setTodos] = useState([]);
-  const [showError, setShowError] = useState(false);
-  // const [errorMessage, setErrorMessage] = useState("");
+  const [isErrorMessage, setIsErrorMessage] = useState(false);
 
-  // useEffect(() => {}, [todos]); // uruchomienie przy kazdej zmianie todos
   useEffect(() => {
-    const lsTodos = localStorage.getItem("todos") ?? [];
-    console.log("localStorage todos at load: " + lsTodos);
-
-    setTodos(JSON.parse(lsTodos));
+    // nullish operator ?? []
+    const todosFromLS = JSON.parse(localStorage.getItem('todos')) ?? [];
+    setTodos(todosFromLS);
   }, []);
 
   const handleInputChange = (event) => {
-    // console.log("App.jsx HandleInputChange fired: " + event.target.value);
     setInputValue(event.target.value);
   };
 
-  const handleSubmitButtonTapped = (event) => {
-    console.log("handleSubmitButtonTapped fired: " + event.target.value);
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const currentText = inputValue;
-    if (currentText.length < 2) {
-      // alert("Input not valid. Length<2");
-      // setErrorMessage("Invalid input. Length<2");
-      setShowError(true);
+
+    // walidacja
+    if (inputValue.length < 2) {
+      setIsErrorMessage(true);
       return;
     }
-    // setErrorMessage("");
-    setShowError(false);
+
     const newTodos = [
       ...todos,
       {
@@ -41,29 +70,31 @@ export const App = () => {
         checked: false,
       },
     ];
+
     setTodos(newTodos);
-    setInputValue("");
-    localStorage.setItem("todos", JSON.stringify(newTodos));
+    // todos bedzie jeszcze stare !!
+    localStorage.setItem('todos', JSON.stringify(newTodos));
+
+    // const newTodos = todos.concat({
+    //   name: inputValue,
+    //   checked: false,
+    // });
+
+    // setTodos(newTodos);
+
+    // czyszczenie formularza
+    setInputValue('');
   };
 
-  return (
-    <div>
-      <h1>TODO LIST:</h1>
-      <form>
-        <input
-          type="text"
-          placeholder="Add a todo"
-          value={inputValue}
-          onChange={handleInputChange}
-        />
-        <button type="submit" onClick={handleSubmitButtonTapped}>
-          Send todo
-        </button>
-      </form>
-      {showError ? (
-        <p className={styles.error}>Invalid input. :( :( :(</p>
-      ) : null}
-      <TodoList todoList={todos} />
-    </div>
-  );
+  return (<div>
+  <h1>Todo list</h1>
+  <form onSubmit={handleSubmit}>
+    <input type="text" placeholder="Write todo" value={inputValue} onChange={handleInputChange}/>
+    <button type="submit">send todo</button>
+    {isErrorMessage ? <p className={styles.error}>Za malo znaków. Minimum 3</p> : null}
+  </form>
+  <TodoList todoList={todos}/>
+</div>);
 };
+
+export default App;

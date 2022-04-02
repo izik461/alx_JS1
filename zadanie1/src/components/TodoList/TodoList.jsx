@@ -1,40 +1,24 @@
-import React from "react";
+import React from 'react';
 
-import styles from "./ToDoList.module.css";
+import styles from './TodoList.module.css';
 
 const TodoList = (props) => {
+  if (!Array.isArray(props.todoList) || props.todoList.length === 0) return null;
+
   return (
-    <ul>
-      {props.todoList.map((todo, index) => {
-        const randomPriority = Math.floor(Math.random() * 3);
-        let priorityString = "minor";
-        switch (randomPriority) {
-          case 0:
-            priorityString = "minor";
-            break;
-          case 1:
-            priorityString = "major";
-            break;
-          default:
-            priorityString = "critical";
-            break;
-        }
-        console.log(
-          "using priorityString: " + randomPriority + " " + priorityString
-        );
-        // const className = "styles." + priorityString;
-        // console.log("using className: " + className);
-        return (
-          <li key={index} className={styles[priorityString]}>
-            {todo.name}
-          </li>
-        );
-      })}
+    <ul className={styles.list}>
+      {
+        props.todoList.map((todo, index) => <li key={index}>{todo.name}</li>)
+      }
     </ul>
   );
 };
 
-//walidacja propsów
-// TOdoList.propTypes + biblioteka propTypes
+// walidacja propsow - prop-types
+// https://www.npmjs.com/package/prop-types
+
+// TodoList.propTypes = {
+//   todoList: propTypes.Array,
+// };
 
 export default TodoList;
