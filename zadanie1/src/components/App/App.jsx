@@ -97,6 +97,21 @@ const App = () => {
     setTodos(todosWithoutDeletedElement)
     localStorage.setItem('todos', JSON.stringify(todosWithoutDeletedElement));
   }
+
+  const handleToggleCheck = (uuid) => {
+    console.log('App - toggle checkbox: ', uuid);
+    const indexOfTodo = todos.findIndex((todo) => {
+      return todo.uuid == uuid;
+    })
+    const todoToBeChanged = todos[indexOfTodo];
+    console.log("Will toggle element: ", todoToBeChanged)
+    const changedTodos = [...todos];
+    changedTodos[indexOfTodo].checked = !changedTodos[indexOfTodo].checked
+    // console.log('Updated after toggle: ', todos)
+    setTodos(changedTodos);
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }
+
   return (<div>
     <h1>Todo list</h1>
     <form onSubmit={handleSubmit}>
@@ -104,7 +119,7 @@ const App = () => {
       <button type="submit">send todo</button>
       {isErrorMessage ? <p className={styles.error}>Za malo znaków. Minimum 3</p> : null}
     </form>
-    <TodoList todoList={todos} onRemove={handleRemove} />
+    <TodoList todoList={todos} onRemove={handleRemove} toggleCheckbox={handleToggleCheck} />
   </div>);
 };
 

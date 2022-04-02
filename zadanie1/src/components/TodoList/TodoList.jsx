@@ -10,12 +10,22 @@ const TodoList = (props) => {
     externalHandleRemove;
   }
 
+  const myHandleToggleCheckbox = (name, externalHandleToggleCheckbox) => {
+    console.log('TodoList - checkbox tapped: ', name);
+    externalHandleToggleCheckbox;
+  }
+
   return (
     <ul className={styles.list}>
       {
-        props.todoList.map((todo) => <li>{todo.name}
-          <button onClick={() => myHandleRemove(todo.name, props.onRemove(todo.uuid))}> X</button>
-        </li>)
+        props.todoList.map((todo) =>
+          <li key={todo.uuid}>
+            <input type="checkBox" checked={todo.checked} onChange={() => myHandleToggleCheckbox(todo.name, props.toggleCheckbox(todo.uuid))} />
+            {' '}
+            {todo.name}
+            {' '}
+            <button onClick={() => myHandleRemove(todo.name, props.onRemove(todo.uuid))}> X</button>
+          </li>)
       }
     </ul>
   );
