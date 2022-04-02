@@ -22,7 +22,7 @@ const TodoList = (props) => {
           <li key={todo.uuid}>
             <input type="checkBox" checked={todo.checked} onChange={() => myHandleToggleCheckbox(todo.name, props.toggleCheckbox(todo.uuid))} />
             {' '}
-            {todo.name}
+            <span className={todo.checked ? styles.completed : ''}>{todo.name}</span>
             {' '}
             <button onClick={() => myHandleRemove(todo.name, props.onRemove(todo.uuid))}> X</button>
           </li>)
