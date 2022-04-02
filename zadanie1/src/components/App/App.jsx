@@ -86,14 +86,7 @@ const App = () => {
     // todos bedzie jeszcze stare !!
     localStorage.setItem('todos', JSON.stringify(newTodos));
 
-    // const newTodos = todos.concat({
-    //   name: inputValue,
-    //   checked: false,
-    // });
 
-    // setTodos(newTodos);
-
-    // czyszczenie formularza
     setInputValue('');
   };
 
