@@ -7,14 +7,14 @@ const TodoList = (props) => {
 
   const myHandleRemove = (name, externalHandleRemove) => {
     console.log('TodoList - delete button tapped: ', name);
-    externalHandleRemove();
+    externalHandleRemove;
   }
 
   return (
     <ul className={styles.list}>
       {
-        props.todoList.map((todo, index) => <li key={index}>{todo.name}
-          <button onClick={() => myHandleRemove(todo.name, props.onRemove(todo.name))}> X</button>
+        props.todoList.map((todo) => <li>{todo.name}
+          <button onClick={() => myHandleRemove(todo.name, props.onRemove(todo.uuid))}> X</button>
         </li>)
       }
     </ul>

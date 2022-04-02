@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import TodoList from '../TodoList/TodoList.jsx';
+import { v4 as uuidv4 } from 'uuid';
 
 import styles from './App.module.css';
 
@@ -66,6 +67,7 @@ const App = () => {
     const newTodos = [
       ...todos,
       {
+        uuid: uuidv4(),
         name: inputValue,
         checked: false,
       },
@@ -86,12 +88,12 @@ const App = () => {
     setInputValue('');
   };
 
-  const handleRemove = (name) => {
-    console.log('Delete button tapped: ', name);
+  const handleRemove = (uuid) => {
+    // console.log('App - Delete button tapped: ', uuid);
     const todosWithoutDeletedElement = todos.filter(todo => {
-      return todo.name !== name;
+      return todo.uuid !== uuid;
     })
-    console.log('New elements: ', todosWithoutDeletedElement)
+    // console.log('New elements: ', todosWithoutDeletedElement)
     setTodos(todosWithoutDeletedElement)
     localStorage.setItem('todos', JSON.stringify(todosWithoutDeletedElement));
   }
