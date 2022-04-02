@@ -4,7 +4,7 @@
   "description": "",
   "main": "script.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "database": "json-server ./data/cars.json -p 3003"
   },
   "author": "",
   "license": "ISC",
