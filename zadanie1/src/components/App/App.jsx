@@ -51,20 +51,20 @@ const App = () => {
   }, []);
 
   const loadTodos = () => {
-    // window.fetch('http://localhost:3003/todos')
-    //   .then(response => {
-    //     console.log('Received response: ', response)
-    //     const todosFromJsonServer = JSON.parse(response.json());
-    //     console.log('parsed todos: ', todosFromJsonServer);
-    //     setTodos(todosFromJsonServer);
-    //   })
-    //   .catch(error => {
-    //     console.error('An error occured while fetching todos :( ', error)
-    //     // setTodos() //TODO:JS?
-    //   })
-
-    // // const todosFromLS = JSON.parse(localStorage.getItem('todos')) ?? [];
-    // // setTodos(todosFromLS);
+    window.fetch('http://localhost:3003/todos')
+      .then(response => {
+        // console.log('Received response: ', response)
+        return response.json();
+      })
+      .then(data => {
+        console.log('Jerzyk Received data: ', data)
+        setTodos(data)
+      })
+      .catch(error => {
+        console.error('An error occured while fetching todos :( ', error)
+        setTodos([])
+      })
+    setTodos([])
   }
 
   const saveTodos = (newTodos) => {
@@ -95,7 +95,6 @@ const App = () => {
     ];
 
     setTodos(newTodos);
-    // todos bedzie jeszcze stare !!
     localStorage.setItem('todos', JSON.stringify(newTodos));
 
 
