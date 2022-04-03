@@ -52,13 +52,13 @@ router.post('/', function (req, res) {
 
   parsedUsers.push(createdUser)
   console.log('Users with added user: ', parsedUsers)
-  fsp.writeFile('./data/users.json', JSON.stringify(parsedUsers), 'utf8')
+  fsp.writeFile('./data/users.json', JSON.stringify({ "users": parsedUsers }), 'utf8')
     .then((writeResult) => {
       console.log('File saved successfully')
       res.send(createdUser)
     })
     .catch((error) => {
-      console.log('Could not read users from file: ', error)
+      console.log('Could not write users to file: ', error)
       res.send(error)
     })
 })
