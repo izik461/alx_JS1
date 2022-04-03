@@ -113,15 +113,15 @@ const App = () => {
       return todo.id !== id;
     })
     // console.log('New elements: ', todosWithoutDeletedElement)
-    const requestOptions = {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(id)
-    };
-    fetch('http://localhost:3003/todos', requestOptions)
-      .then(response => response.json())
-      .then(data =>
-        console.log('removed TODO:', data));
+    // const requestOptions = {
+    //   method: 'DELETE',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(id)
+    // };
+    // fetch('http://localhost:3003/todos', requestOptions)
+    //   .then(response => response.json())
+    //   .then(data =>
+    //     console.log('removed TODO:', data));
     saveTodos(todosWithoutDeletedElement)
   }
 
