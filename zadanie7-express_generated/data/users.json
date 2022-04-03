@@ -1,12 +1,1 @@
-{
-  "users": [
-  {
-    "id": 1,
-    "name": "Jerzyk"
-  },
-  {
-    "id": 2,
-    "name": "Damian"
-  }
-]
-}
+[{"id":1,"name":"Jerzyk"},{"id":2,"name":"Damian"},{"id":5,"name":"Bonifacy"}]

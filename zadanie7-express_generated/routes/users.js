@@ -38,28 +38,29 @@ router.get('/:userId', (req, res) => {
   }
 })
 
-// app.post('/users', function (req, res) {
-//   const userId = req.body.id;
-//   const userName = req.body.name;
+router.post('/', function (req, res) {
+  const userId = req.body.id;
+  const userName = req.body.name;
 
-//   const createdUser = {
-//     "id": userId,
-//     "name": userName
-//   }
+  const parsedUsers = users.users
+  console.log('Current users: ', parsedUsers)
 
-//   const parsedUsers = users.users
-//   parsedUsers.push(createdUser)
-//   console.log('Users with added user: ', parsedUsers)
+  const createdUser = {
+    "id": userId,
+    "name": userName
+  }
 
-//   const users = fsp.writeFile('./data/users.json', 'utf8')
-//     .then((writeResult) => {
-//       console.log('File saved successfully')
-//       res.send(createdUser)
-//     })
-//     .catch((error) => {
-//       console.log('Could not read users from file: ', error)
-//       res.send(error)
-//     })
-// })
+  parsedUsers.push(createdUser)
+  console.log('Users with added user: ', parsedUsers)
+  fsp.writeFile('./data/users.json', JSON.stringify(parsedUsers), 'utf8')
+    .then((writeResult) => {
+      console.log('File saved successfully')
+      res.send(createdUser)
+    })
+    .catch((error) => {
+      console.log('Could not read users from file: ', error)
+      res.send(error)
+    })
+})
 
 module.exports = router;
