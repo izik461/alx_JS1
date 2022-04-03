@@ -1,17 +1,19 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp } from 'firebase/app';
 import { getDatabase } from 'firebase/database';
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCoiAZyetunAJGfliEdMYPYNLKFuHi9KeY",
-  authDomain: "alx-firebase-chat-jerzyk.firebaseapp.com",
-  projectId: "alx-firebase-chat-jerzyk",
-  storageBucket: "alx-firebase-chat-jerzyk.appspot.com",
-  messagingSenderId: "441567251931",
-  appId: "1:441567251931:web:6fea9603527e079e472bfe"
+  apiKey: 'AIzaSyCU0XblPqpCnjryjfzQyl2GS2MHUIFuAM0',
+  authDomain: 'alxchat1.firebaseapp.com',
+  projectId: 'alxchat1',
+  databaseURL:
+    'https://alxchat1-default-rtdb.europe-west1.firebasedatabase.app',
+  storageBucket: 'alxchat1.appspot.com',
+  messagingSenderId: '250637046697',
+  appId: '1:250637046697:web:4856742326a9baf903eab8',
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-export default getDatabase(app);
+const database = getDatabase(app);
+
+export default database;
