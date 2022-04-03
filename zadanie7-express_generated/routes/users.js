@@ -39,14 +39,15 @@ router.get('/:userId', (req, res) => {
 })
 
 router.post('/', function (req, res) {
-  const userId = req.body.id;
   const userName = req.body.name;
 
   const parsedUsers = users.users
   console.log('Current users: ', parsedUsers)
+  console.log('Current users: ', parsedUsers)
 
+  const newUserId = parsedUsers[parsedUsers.length - 1].id + 1
   const createdUser = {
-    "id": userId,
+    "id": newUserId,
     "name": userName
   }
 
