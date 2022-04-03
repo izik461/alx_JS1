@@ -21,7 +21,7 @@ router.get('/', function (req, res, next) {
 
 router.get('/:userId', (req, res) => {
   console.log(req.params)
-  const userId = req.params["userId"]
+  const userId = req.params.userId//req.params["userId"]
   console.log('Searching for id: ', userId)
   console.log('Current users: ', users)
 
@@ -29,12 +29,12 @@ router.get('/:userId', (req, res) => {
   console.log('Parsed users: ', parsedUsers)
 
   const foundUser = parsedUsers.find((aUser) => {
-    return aUser.id == userId
+    return aUser.id === parseInt(userId)
   })
   if (foundUser) {
     res.send(foundUser)
   } else {
-    res.send('COULD NOT FIND USER')
+    res.status(404).send('COULD NOT FIND USER')
   }
 })
 
