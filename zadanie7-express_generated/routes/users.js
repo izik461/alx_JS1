@@ -24,7 +24,7 @@ router.get('/:userId', (req, res) => {
   console.log('Searching for id: ', userId)
   console.log('Current users: ', users)
 
-  const parsedUsers = JSON.parse(JSON.stringify(users.users))
+  const parsedUsers = users.users
   console.log('Parsed users: ', parsedUsers)
 
   const filteredUsers = parsedUsers.filter((aUser) => {
