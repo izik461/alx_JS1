@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import App from 'components/pages/App/App';
 import MyProfile from 'components/pages/MyProfile/MyProfile';
-
+import NotFound from './pages/NotFound/NotFound';
 // ręczny router
 // const getRoute = () => {
 //   if (window.location.pathname === '/') return <App />;
@@ -18,6 +18,7 @@ function Router() {
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/me" element={<MyProfile />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
