@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { onValue, ref, set } from 'firebase/database';
 
-import database from 'firebase.js';
+import { observe, save } from 'services/firebase';
 
 import Button from 'components/elements/button/Button';
 import InputGroup from 'components/elements/inputGroup/InputGroup';
@@ -13,17 +13,14 @@ function App() {
   const [messageInputValue, setMessageInputValue] = useState('');
 
   useEffect(() => {
-    onValue(ref(database, '/'), (snapshot) => {
-      const data = snapshot.val();
-      setMessages(Object.values(data ?? {}));
-    });
+    observe('/', setMessages);
   }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const newMessageId = Date.now();
 
-    set(ref(database, `/${newMessageId}`), {
+    save('/', {
       id: newMessageId,
       person: personInputValue,
       message: messageInputValue,
@@ -68,17 +65,6 @@ function App() {
           handleChange={handleMessageChange}
           inputValue={messageInputValue}
         />
-        {/* <div>
-          <label htmlFor="message">
-            Message
-            <input
-              type="text"
-              id="message"
-              onChange={handleMessageChange}
-              value={messageInputValue}
-            />
-          </label>
-        </div> */}
         <button type="submit">Send</button>
         <Button type="submit">
           <i>&#8508;</i>
