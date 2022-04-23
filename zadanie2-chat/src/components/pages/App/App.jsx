@@ -3,6 +3,7 @@ import { onValue, ref, set } from 'firebase/database';
 
 import database from 'firebase.js';
 
+import Button from 'components/elements/button/Button';
 import styles from './App.module.css';
 
 function App() {
@@ -75,6 +76,10 @@ function App() {
           </label>
         </div>
         <button type="submit">Send</button>
+        <Button type="submit">
+          <i>&#8508;</i>
+          Button children defined in app.jsx
+        </Button>
       </form>
     </div>
   );
