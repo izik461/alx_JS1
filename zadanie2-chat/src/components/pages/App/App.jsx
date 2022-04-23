@@ -4,6 +4,7 @@ import { onValue, ref, set } from 'firebase/database';
 import database from 'firebase.js';
 
 import Button from 'components/elements/button/Button';
+import InputGroup from 'components/elements/inputGroup/InputGroup';
 import styles from './App.module.css';
 
 function App() {
@@ -53,18 +54,21 @@ function App() {
         </ul>
       </div>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="person">
-            Person
-            <input
-              type="text"
-              id="person"
-              value={personInputValue}
-              onChange={handlePersonChange}
-            />
-          </label>
-        </div>
-        <div>
+        <InputGroup
+          id="person"
+          type="text"
+          label="person label from app.jsx"
+          handleChange={handlePersonChange}
+          inputValue={personInputValue}
+        />
+        <InputGroup
+          id="message"
+          type="text"
+          label="message label from App.jsx 2 "
+          handleChange={handleMessageChange}
+          inputValue={messageInputValue}
+        />
+        {/* <div>
           <label htmlFor="message">
             Message
             <input
@@ -74,7 +78,7 @@ function App() {
               value={messageInputValue}
             />
           </label>
-        </div>
+        </div> */}
         <button type="submit">Send</button>
         <Button type="submit">
           <i>&#8508;</i>
