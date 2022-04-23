@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { onValue, ref, set } from 'firebase/database';
 
-import database from '../../firebase';
+import database from 'firebase.js';
 
 import styles from './App.module.css';
 

@@ -2,14 +2,13 @@ import { initializeApp } from 'firebase/app';
 import { getDatabase } from 'firebase/database';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCU0XblPqpCnjryjfzQyl2GS2MHUIFuAM0',
-  authDomain: 'alxchat1.firebaseapp.com',
-  projectId: 'alxchat1',
-  databaseURL:
-    'https://alxchat1-default-rtdb.europe-west1.firebasedatabase.app',
-  storageBucket: 'alxchat1.appspot.com',
-  messagingSenderId: '250637046697',
-  appId: '1:250637046697:web:4856742326a9baf903eab8',
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  databaseURL: process.env.REACT_APP_DATABASE_URL,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);
