@@ -8,19 +8,19 @@ function Main({ children }) {
     <div className={styles.wrapper}>
       <header className={styles.header}>
         <Link to="/" className={styles.logo}>
-          <h1 className={styles.title}>Chat App</h1>
+          <h1 className={styles.title}>Jerzogram</h1>
         </Link>
         <nav className={styles.navigation}>
           <ul>
             <li>
-              <Link to="/me">My Profile</Link>
+              <Link to="/profile">My Profile</Link>
             </li>
           </ul>
         </nav>
       </header>
 
       <main>{children}</main>
-      <footer className={styles.footer}>hello footer</footer>
+      <footer className={styles.footer}>Copyright Mięsoft</footer>
     </div>
   );
 }

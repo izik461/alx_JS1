@@ -17,9 +17,9 @@ function Router() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/me" element={<MyProfile />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<MyProfile />} />
+        {/* <Route path="/login" element={<Login />} /> */}
+        {/* <Route path="/register" element={<Register />} /> */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
