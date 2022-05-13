@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { observe, save } from 'services/firebase';
+import { observe, save, get } from 'services/firebase';
 
 import Button from 'components/elements/button/Button';
 import InputGroup from 'components/elements/inputGroup/InputGroup';
@@ -13,14 +13,18 @@ function App() {
   const [messageInputValue, setMessageInputValue] = useState('');
 
   useEffect(() => {
-    observe('/', setMessages);
+    observe('messages/', setMessages);
+
+    // get('currentUser').then((user) => {
+    //   console.log(user);
+    // });
   }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const newMessageId = Date.now();
 
-    save('/', {
+    save('messages/', {
       id: newMessageId,
       person: personInputValue,
       message: messageInputValue,
