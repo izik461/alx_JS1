@@ -13,6 +13,11 @@ function Header() {
         <nav className={styles.navigation}>
           <ul>
             <li>
+              <Link to="/login">
+                <Button>Sign in</Button>
+              </Link>
+            </li>
+            <li>
               <Link to="/register">
                 <Button>Sign up</Button>
               </Link>

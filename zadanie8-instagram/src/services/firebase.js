@@ -6,7 +6,11 @@ import {
   set,
   get as FBGet,
 } from 'firebase/database';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -47,3 +51,6 @@ export const update = (url, data) => set(fBRef(database, url, data));
 
 export const registerUser = (email, password) =>
   createUserWithEmailAndPassword(auth, email, password);
+
+export const loginUser = (email, password) =>
+  signInWithEmailAndPassword(auth, email, password);
