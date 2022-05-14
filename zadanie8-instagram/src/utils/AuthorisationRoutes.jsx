@@ -1,8 +1,10 @@
-const { MainContext } = require('contexts/main');
-const { useContext, useEffect } = require('react');
-const { useNavigate } = require('react-router-dom');
+import { useEffect, useContext } from 'react';
+import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
+import { MainContext } from 'contexts/main';
 
-export function RestrictedRoute() {
+// nie chcemy dopuscic uzytkownika niezalogowanego do np. dashboardu
+export function RestrictedRoute({ children }) {
   const { currentUser } = useContext(MainContext);
   const navigate = useNavigate();
 
@@ -11,8 +13,28 @@ export function RestrictedRoute() {
       navigate('/');
     }
   }, []);
+
+  return children;
 }
 
-export function HomeRoute() {
-  return null;
+RestrictedRoute.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+// na stronie glownej, logowania i rejestracji, chcemy przekierowac uzytkownika jak juz jest zalogowany
+export function PublicRoute({ children }) {
+  const { currentUser } = useContext(MainContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (currentUser) {
+      navigate('/dashboard');
+    }
+  });
+
+  return children;
 }
+
+PublicRoute.propTypes = {
+  children: PropTypes.node.isRequired,
+};

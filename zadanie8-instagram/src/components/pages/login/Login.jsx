@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Main from 'components/layouts/main/Main';
 import InputGroup from 'components/elements/input-group/InputGroup';
 import Button from 'components/elements/button/Button';
-
+import { PublicRoute } from 'utils/AuthorisationRoutes';
 import { loginUser } from 'services/firebase';
 
 function Login() {
@@ -36,26 +36,28 @@ function Login() {
   };
 
   return (
-    <Main>
-      <form className="form" onSubmit={handleSubmit}>
-        <InputGroup
-          id="email"
-          type="text"
-          label="email"
-          handleChange={handleEmailChange}
-          inputValue={email}
-        />
-        <InputGroup
-          id="password"
-          type="password"
-          label="password"
-          handleChange={handlePasswordChange}
-          inputValue={password}
-        />
-        <Button btnType="submit">Sign in</Button>
-        {apiError && <p>{apiError}</p>}
-      </form>
-    </Main>
+    <PublicRoute>
+      <Main>
+        <form className="form" onSubmit={handleSubmit}>
+          <InputGroup
+            id="email"
+            type="text"
+            label="email"
+            handleChange={handleEmailChange}
+            inputValue={email}
+          />
+          <InputGroup
+            id="password"
+            type="password"
+            label="password"
+            handleChange={handlePasswordChange}
+            inputValue={password}
+          />
+          <Button btnType="submit">Sign in</Button>
+          {apiError && <p>{apiError}</p>}
+        </form>
+      </Main>
+    </PublicRoute>
   );
 }
 
