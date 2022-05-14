@@ -6,6 +6,7 @@ import {
   set,
   get as FBGet,
 } from 'firebase/database';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -20,6 +21,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const database = getDatabase(app);
+
+const auth = getAuth(app);
 
 export const observe = (url, callback) =>
   onValue(fBRef(database, url), (snapshot) => {
@@ -41,3 +44,6 @@ export const get = (url) =>
   FBGet(fBRef(url, database)).then((data) => data.val());
 
 export const update = (url, data) => set(fBRef(database, url, data));
+
+export const registerUser = (email, password) =>
+  createUserWithEmailAndPassword(auth, email, password);

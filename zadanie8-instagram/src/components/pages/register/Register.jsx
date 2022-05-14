@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import InputGroup from 'components/elements/input-group/InputGroup';
 import Main from 'components/layouts/main/Main';
+import { useNavigate } from 'react-router-dom';
 import Button from '../../elements/button/Button';
+import { registerUser } from '../../../services/firebase';
 
 function Register() {
   const [emailInputValue, setEmailInputValue] = useState('');
   const [passwordInputValue, setPasswordInputValue] = useState('');
   const [isError, setIsError] = useState(false);
   const [isErrorValue, setIsErrorValue] = useState('');
+  const [apiErrorValue, setApiErrorValue] = useState('');
+
+  const navigate = useNavigate();
 
   const handleEmailChanged = (event) => {
     console.log(`Handle email change in Register.jsx: ${event.target.value}`);
@@ -37,9 +42,14 @@ function Register() {
     }
     setIsError(false);
 
-    // update('currentUser', {
-    //   name: nameValue,
-    // });
+    registerUser(emailInputValue, passwordInputValue)
+      .then(() => {
+        setApiErrorValue('');
+        navigate('/dashboard');
+      })
+      .catch((error) => {
+        setApiErrorValue(`Error creating user: ${error.message}`);
+      });
   };
 
   return (
@@ -65,6 +75,12 @@ function Register() {
         {/* <Button type="submit">Create account</Button> */}
         <Button btnType="submit">Create account</Button>
       </form>
+      {apiErrorValue && (
+        <p>
+          API error:
+          {apiErrorValue}
+        </p>
+      )}
     </Main>
   );
 }
