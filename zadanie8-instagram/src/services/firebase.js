@@ -10,6 +10,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
 } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -26,7 +27,7 @@ const app = initializeApp(firebaseConfig);
 
 const database = getDatabase(app);
 
-const auth = getAuth(app);
+export const auth = getAuth(app);
 
 export const observe = (url, callback) =>
   onValue(fBRef(database, url), (snapshot) => {
@@ -54,3 +55,5 @@ export const registerUser = (email, password) =>
 
 export const loginUser = (email, password) =>
   signInWithEmailAndPassword(auth, email, password);
+
+export const signOutUser = () => signOut(auth);

@@ -1,19 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Button({ btnType, children }) {
-  // tu następuje destrykturyzacja przekazanych propsów
-  return <button type={btnType}>{children}</button>;
+import styles from './styles.module.css';
+
+function Button({ btnType, children, onClick }) {
+  return (
+    <button className={styles.button} type={btnType} onClick={onClick}>
+      {children}
+    </button>
+  );
 }
 
 Button.defaultProps = {
   btnType: 'button',
   children: null,
+  onClick: null,
 };
 
 Button.propTypes = {
   btnType: PropTypes.string,
   children: PropTypes.node,
+  onClick: PropTypes.func,
 };
 
 export default Button;
