@@ -2,9 +2,9 @@ import { initializeApp } from 'firebase/app';
 import {
   getDatabase,
   onValue,
-  ref as fBRef,
+  ref,
+  get as FBget,
   set,
-  get as FBGet,
 } from 'firebase/database';
 import {
   getAuth,
@@ -30,7 +30,7 @@ const database = getDatabase(app);
 export const auth = getAuth(app);
 
 export const observe = (url, callback) =>
-  onValue(fBRef(database, url), (snapshot) => {
+  onValue(ref(database, `${url}/`), (snapshot) => {
     const data = snapshot.val();
     // przekazalismy setMessages jako callback, poniewaz chcemy uruchomic ta funkcje za kazdym razem jak zmieniaja sie dane
     callback(Object.values(data ?? {}));
@@ -39,16 +39,16 @@ export const observe = (url, callback) =>
 export const save = (url, data) => {
   const newRecordId = Date.now();
 
-  return set(fBRef(database, `${url}${newRecordId}`), {
+  return set(ref(database, `${url}/${newRecordId}`), {
     id: newRecordId,
     ...data,
   });
 };
 
-export const get = (url) =>
-  FBGet(fBRef(url, database)).then((data) => data.val());
+export const update = (url, data) => set(ref(database, url), data);
 
-export const update = (url, data) => set(fBRef(database, url, data));
+export const get = (url) =>
+  FBget(ref(database, url)).then((data) => data.val());
 
 export const registerUser = (email, password) =>
   createUserWithEmailAndPassword(auth, email, password);

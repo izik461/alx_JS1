@@ -1,28 +1,20 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth, signOutUser } from 'services/firebase';
+import { signOutUser } from 'services/firebase';
+import { MainContext } from 'contexts/main';
 import Button from '../button/Button';
+
 import styles from './style.module.css';
 
 function Header() {
-  const [currentUser, setCurrentUser] = useState(null);
   const navigate = useNavigate();
-
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      console.log(`Current user: ${user}`);
-      setCurrentUser(user);
-    } else {
-      setCurrentUser(null);
-    }
-  });
+  const { currentUser } = useContext(MainContext);
 
   const signOut = () => {
-    console.log('Tapped signOut');
-    signOutUser().then(navigate('/dashboard'));
+    signOutUser().then(() => navigate('/'));
   };
 
+  console.log(`Current user from Header: ${JSON.stringify(currentUser)}`);
   return (
     <header className={styles.header}>
       <div className={`container ${styles.headerContainer}`}>
@@ -34,8 +26,16 @@ function Header() {
             {currentUser ? (
               <>
                 <li>
+                  <img
+                    src={currentUser.photoURL}
+                    alt="User avatar"
+                    width="50"
+                    height="50"
+                  />
+                </li>
+                <li>
                   <Link to="/me">
-                    <Button>My Profile</Button>
+                    <Button>My profile</Button>
                   </Link>
                 </li>
                 <li>

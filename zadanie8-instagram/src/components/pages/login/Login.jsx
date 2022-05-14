@@ -1,89 +1,60 @@
 import React, { useState } from 'react';
-
-import InputGroup from 'components/elements/input-group/InputGroup';
-import Main from 'components/layouts/main/Main';
 import { useNavigate } from 'react-router-dom';
-import Button from '../../elements/button/Button';
-import { loginUser } from '../../../services/firebase';
-// import { loginUser } from '../../../services/firebase';
+import Main from 'components/layouts/main/Main';
+import InputGroup from 'components/elements/input-group/InputGroup';
+import Button from 'components/elements/button/Button';
+
+import { loginUser } from 'services/firebase';
 
 function Login() {
-  const [emailInputValue, setEmailInputValue] = useState('');
-  const [passwordInputValue, setPasswordInputValue] = useState('');
-  const [isError, setIsError] = useState(false);
-  const [isErrorValue, setIsErrorValue] = useState('');
-  const [apiErrorValue, setApiErrorValue] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [apiError, setApiError] = useState('');
 
   const navigate = useNavigate();
 
-  const handleEmailChanged = (event) => {
-    console.log(`Handle email change in Register.jsx: ${event.target.value}`);
-    setEmailInputValue(event.target.value);
-  };
-
-  const handlePasswordChanged = (event) => {
-    console.log(
-      `Handle password change in Register.jsx: ${event.target.value}`
-    );
-    setPasswordInputValue(event.target.value);
-  };
-
   const handleSubmit = (event) => {
-    console.log(`Tapped submit. Current email: ${emailInputValue}`);
-
     event.preventDefault();
-    if (emailInputValue.length < 5) {
-      setIsError(true);
-      setIsErrorValue('Email length should be > 5');
-      return;
-    }
-    if (passwordInputValue.length < 5) {
-      setIsError(true);
-      setIsErrorValue('Password length should be > 5');
-      return;
-    }
-    setIsError(false);
 
-    loginUser(emailInputValue, passwordInputValue)
+    // @TODO Walidacja
+
+    loginUser(email, password)
       .then(() => {
-        setApiErrorValue('');
-        console.log('User logged in successfully!');
         navigate('/dashboard');
       })
       .catch((error) => {
-        setApiErrorValue(`Error creating user: ${error.message}`);
+        setApiError(error.message);
       });
+  };
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
   };
 
   return (
     <Main>
-      Hello from Register
-      <form onSubmit={handleSubmit}>
+      <form className="form" onSubmit={handleSubmit}>
         <InputGroup
-          id="userName"
+          id="email"
           type="text"
-          label="Email:"
-          handleChange={handleEmailChanged}
-          inputValue={emailInputValue}
+          label="email"
+          handleChange={handleEmailChange}
+          inputValue={email}
         />
         <InputGroup
           id="password"
-          type="text"
-          label="Password: "
-          handleChange={handlePasswordChanged}
-          inputValue={passwordInputValue}
+          type="password"
+          label="password"
+          handleChange={handlePasswordChange}
+          inputValue={password}
         />
-        {isError && <p>{isErrorValue}</p>}
-
-        {/* <Button type="submit">Create account</Button> */}
-        <Button btnType="submit">Login</Button>
+        <Button btnType="submit">Sign in</Button>
+        {apiError && <p>{apiError}</p>}
       </form>
-      {apiErrorValue && (
-        <p>
-          API error:
-          {apiErrorValue}
-        </p>
-      )}
     </Main>
   );
 }

@@ -1,53 +1,60 @@
-import React, { useState } from 'react';
-
+import React, { useContext, useState } from 'react';
 import Main from 'components/layouts/main/Main';
 import InputGroup from 'components/elements/input-group/InputGroup';
 import Button from 'components/elements/button/Button';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from 'services/firebase';
+
+import { updateProfile } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+import { MainContext } from 'contexts/main';
 
 function MyProfile() {
-  const [emailValue, setEmailValue] = useState('');
-  const [displayNameValue, setDisplayNameValue] = useState('');
+  const { currentUser } = useContext(MainContext);
+  const [name, setName] = useState(currentUser.displayName);
+  const [avatar, setAvatar] = useState(currentUser.photoURL);
+  const navigate = useNavigate();
 
-  const handleDisplayNameChanged = (event) => {
-    console.log(`Handle Change in MyProfile.jsx: ${event.target.value}`);
-    setDisplayNameValue(event.target.value);
+  const handleNameChange = (event) => {
+    setName(event.target.value);
   };
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      console.log(`MyProfile: Current user: ${user}`);
-      setEmailValue(user.email);
-      setDisplayNameValue(user.displayName);
-    } else {
-      setEmailValue('');
-      setDisplayNameValue('');
-    }
-  });
+  const handleAvatarChange = (event) => {
+    setAvatar(event.target.value);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(`Tapped submit with displayName provided: ${displayNameValue}`);
 
-    // update('currentUser', {
-    //   name: nameValue,
-    // });
+    updateProfile(currentUser, {
+      displayName: name,
+      photoURL: avatar,
+    })
+      .then(() => {
+        navigate('/dashboard');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
     <Main>
-      <h1>My profile</h1>
-      <div>Email: {emailValue}</div>
-      <form onSubmit={handleSubmit}>
+      <form className="form" onSubmit={handleSubmit}>
+        <div>Email: ${currentUser.email}</div>
         <InputGroup
-          id="displayName"
+          id="name"
           type="text"
-          label="person label from app.jsx"
-          handleChange={handleDisplayNameChanged}
-          inputValue={displayNameValue}
+          label="name"
+          handleChange={handleNameChange}
+          inputValue={name}
         />
-        <Button btnType="submit">Update your profile</Button>
+        <InputGroup
+          id="avatar"
+          type="text"
+          label="avatar"
+          handleChange={handleAvatarChange}
+          inputValue={avatar}
+        />
+        <Button btnType="submit">Save</Button>
       </form>
     </Main>
   );
