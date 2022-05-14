@@ -4,16 +4,14 @@ import Main from 'components/layouts/main/Main';
 import Button from '../../elements/button/Button';
 
 function Register() {
-  const [usernameInputValue, setUsernameInputValue] = useState('');
+  const [emailInputValue, setEmailInputValue] = useState('');
   const [passwordInputValue, setPasswordInputValue] = useState('');
   const [isError, setIsError] = useState(false);
   const [isErrorValue, setIsErrorValue] = useState('');
 
-  const handleUsernameChanged = (event) => {
-    console.log(
-      `Handle username change in Register.jsx: ${event.target.value}`
-    );
-    setUsernameInputValue(event.target.value);
+  const handleEmailChanged = (event) => {
+    console.log(`Handle email change in Register.jsx: ${event.target.value}`);
+    setEmailInputValue(event.target.value);
   };
 
   const handlePasswordChanged = (event) => {
@@ -24,17 +22,15 @@ function Register() {
   };
 
   const handleSubmit = (event) => {
-    console.log(`Tapped submit. Current username: ${usernameInputValue}`);
+    console.log(`Tapped submit. Current email: ${emailInputValue}`);
 
     event.preventDefault();
-    if (usernameInputValue.length < 5) {
-      alert('Name too short, you ****!');
+    if (emailInputValue.length < 5) {
       setIsError(true);
-      setIsErrorValue('Name length should be > 5');
+      setIsErrorValue('Email length should be > 5');
       return;
     }
     if (passwordInputValue.length < 5) {
-      alert('Password too short, you ****!');
       setIsError(true);
       setIsErrorValue('Password length should be > 5');
       return;
@@ -53,9 +49,9 @@ function Register() {
         <InputGroup
           id="userName"
           type="text"
-          label="Username:"
-          handleChange={handleUsernameChanged}
-          inputValue={usernameInputValue}
+          label="Email:"
+          handleChange={handleEmailChanged}
+          inputValue={emailInputValue}
         />
         <InputGroup
           id="password"
