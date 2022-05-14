@@ -32,9 +32,16 @@ function Header() {
         <nav className={styles.navigation}>
           <ul>
             {currentUser ? (
-              <li>
-                <Button onClick={signOut}>Sign out</Button>
-              </li>
+              <>
+                <li>
+                  <Link to="/me">
+                    <Button>My Profile</Button>
+                  </Link>
+                </li>
+                <li>
+                  <Button onClick={signOut}>Sign out</Button>
+                </li>
+              </>
             ) : (
               <>
                 <li>
