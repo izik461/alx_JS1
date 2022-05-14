@@ -1,17 +1,10 @@
-.wrapper {
-  width: 400px;
-  margin: 20px auto;
-  box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.5);
-}
-
-.wrapper main {
-  margin: 20px 0;
-}
-
 .header {
   height: 40px;
   padding: 5px 10px;
   background: #eee;
+}
+
+.headerContainer {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -32,13 +25,4 @@
 
 .navigation ul {
   list-style: none;
-}
-
-.footer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 40px;
-  padding: 5px 10px;
-  background: #eee;
 }

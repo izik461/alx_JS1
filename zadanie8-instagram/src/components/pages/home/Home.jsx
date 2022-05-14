@@ -2,12 +2,12 @@ import React from 'react';
 
 import Main from 'components/layouts/main/Main';
 
-function NotFound() {
+function Home() {
   return (
     <Main>
-      <p>Not Found</p>
+      <h1>Hello Home</h1>
     </Main>
   );
 }
 
-export default NotFound;
+export default Home;

@@ -1,9 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import styles from './style.module.css';
+
 function Button({ btnType, children }) {
-  // tu następuje destrykturyzacja przekazanych propsów
-  return <button type={btnType}>{children}</button>;
+  return (
+    <button className={styles.button} type={btnType}>
+      {children}
+    </button>
+  );
 }
 
 Button.defaultProps = {

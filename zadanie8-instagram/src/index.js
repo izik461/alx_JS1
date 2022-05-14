@@ -1,9 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+import Router from './Router';
+
 import './styles/index.css';
-import Router from './components/Router';
 
 ReactDOM.render(
-  <React.StrictMode>{Router()}</React.StrictMode>,
+  <React.StrictMode>
+    <Router />
+  </React.StrictMode>,
   document.getElementById('root')
 );
