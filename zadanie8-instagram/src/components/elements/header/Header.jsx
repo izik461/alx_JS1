@@ -14,7 +14,7 @@ function Header() {
     signOutUser().then(() => navigate('/'));
   };
 
-  console.log(`Current user from Header: ${JSON.stringify(currentUser)}`);
+  // console.log(`Current user from Header: ${JSON.stringify(currentUser)}`);
   return (
     <header className={styles.header}>
       <div className={`container ${styles.headerContainer}`}>

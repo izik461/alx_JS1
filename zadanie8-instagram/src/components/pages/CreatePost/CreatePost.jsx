@@ -4,11 +4,12 @@ import Main from 'components/layouts/main/Main';
 import InputGroup from 'components/elements/input-group/InputGroup';
 import { useNavigate } from 'react-router-dom';
 import { RestrictedRoute } from 'utils/AuthorisationRoutes';
+import { addFileToStorage } from 'services/firebase';
 
 function CreatePost() {
   const [titleValue, setTitleValue] = useState('');
   const [bodyValue, setbodyValue] = useState('');
-  const [setFileValue] = useState('');
+  const [fileValue, setFileValue] = useState('');
   const [isError, setIsError] = useState(false);
 
   const navigate = useNavigate();
@@ -38,10 +39,10 @@ function CreatePost() {
     }
     setIsError(false);
 
-    console.log(`TODO: should create post: ${titleValue}: ${bodyValue}`);
     // update('currentUser', {
     //   name: nameValue,
     // });
+    addFileToStorage(fileValue);
     navigate('/dashboard');
   };
 
