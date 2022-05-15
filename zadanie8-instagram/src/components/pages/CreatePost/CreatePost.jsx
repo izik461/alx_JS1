@@ -53,14 +53,16 @@ function CreatePost() {
         title: titleValue,
         description: bodyValue,
         image: url,
+        likes: 0,
         author: {
           name: currentUser.displayName,
           avatar: currentUser.photoURL,
         },
       };
-      save('posts', newPost);
+      save('posts', newPost).then(() => {
+        navigate('/dashboard');
+      });
     });
-    navigate('/dashboard');
   };
 
   return (

@@ -55,7 +55,11 @@ export const save = (url, data) => {
 export const update = (url, data) => set(ref(database, url), data);
 
 export const get = (url) =>
-  FBget(ref(database, url)).then((data) => data.val());
+  FBget(ref(database, url)).then((data) => {
+    console.log(`Firebase get received data: ${data}`);
+    const dataVal = data.val();
+    return dataVal;
+  });
 
 export const registerUser = (email, password) =>
   createUserWithEmailAndPassword(auth, email, password);
