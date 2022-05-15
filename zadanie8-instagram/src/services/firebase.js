@@ -70,10 +70,9 @@ const storage = getStorage();
 export const addFileToStorage = (file) => {
   console.log(`Adding to storage: ${file.name}`);
   const fileDestination = storageRef(storage, `files/${file.name}`);
-  uploadBytes(fileDestination, file)
-    .then((response) => {
-      console.log(response);
-      return getDownloadURL(fileDestination);
-    })
-    .then((url) => console.log(`URL of uploaded file: ${url}`));
+  return uploadBytes(fileDestination, file).then(() =>
+    // console.log(response);
+    getDownloadURL(fileDestination)
+  );
+  // .then((url) => console.log(`URL of uploaded file: ${url}`));
 };

@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import Main from 'components/layouts/main/Main';
 import InputGroup from 'components/elements/input-group/InputGroup';
 import { useNavigate } from 'react-router-dom';
 import { RestrictedRoute } from 'utils/AuthorisationRoutes';
 import { addFileToStorage } from 'services/firebase';
+import { MainContext } from 'contexts/main';
 
 function CreatePost() {
   const [titleValue, setTitleValue] = useState('');
   const [bodyValue, setbodyValue] = useState('');
   const [fileValue, setFileValue] = useState('');
   const [isError, setIsError] = useState(false);
+  const { currentUser } = useContext(MainContext);
 
   const navigate = useNavigate();
 
@@ -42,7 +44,11 @@ function CreatePost() {
     // update('currentUser', {
     //   name: nameValue,
     // });
-    addFileToStorage(fileValue);
+    addFileToStorage(fileValue).then((url) =>
+      console.log(
+        `Uploaded: ${currentUser}, ${titleValue}, ${bodyValue}, ${url}`
+      )
+    );
     navigate('/dashboard');
   };
 
