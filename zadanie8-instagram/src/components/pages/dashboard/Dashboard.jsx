@@ -19,12 +19,14 @@ function Dashboard() {
         <ul>
           {posts.map((aPost) => (
             <li key={aPost.id}>
-              {aPost.title}: {aPost.description}
-              <ul>
-                <li>
-                  <img src={aPost.image} alt="post" width="150" height="150" />
-                </li>
-              </ul>
+              <div>
+                <h5>{aPost.author?.name ?? 'NO AUTHOR'}:</h5>
+              </div>
+              <div>
+                <h3>{aPost.title}</h3>
+              </div>
+              <div>{aPost.description}</div>
+              <img src={aPost.image} alt="post" width="250" height="250" />
             </li>
           ))}
         </ul>
