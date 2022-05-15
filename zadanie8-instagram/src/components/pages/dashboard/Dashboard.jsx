@@ -18,6 +18,15 @@ function Dashboard() {
     update(`/posts/${post.id}`, {
       ...post,
       likes: post.likes + 1,
+    }).then((result) => {
+      const copiedPostsArray = [...posts];
+      console.log(`Likes finished updating: ${result}`);
+      const selectedPostsIndex = posts.findIndex(
+        (frontPost) => frontPost.id === post.id
+      );
+
+      copiedPostsArray[selectedPostsIndex].likes = post.likes + 1;
+      setPosts(copiedPostsArray);
     });
   };
 
