@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Main from 'components/layouts/main/Main';
 import { RestrictedRoute } from 'utils/AuthorisationRoutes';
-import { get } from 'services/firebase';
+import { get, update } from 'services/firebase';
 import styles from './style.module.css';
 
 function Dashboard() {
@@ -12,6 +12,14 @@ function Dashboard() {
       setPosts(Object.values(databasePosts ?? {}));
     });
   }, []);
+
+  const handleLikeTappped = (post) => {
+    console.log('Tapped like!');
+    update(`/posts/${post.id}`, {
+      ...post,
+      likes: post.likes + 1,
+    });
+  };
 
   return (
     <RestrictedRoute>
@@ -29,11 +37,17 @@ function Dashboard() {
                 <p className={styles.description}>{post.description}</p>
               </div>
               <div className={styles.likesContainer}>
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Ei-like.svg/1200px-Ei-like.svg.png"
-                  alt="Like"
-                />
-                <p>Like ({post.likes})</p>
+                <button
+                  onClick={() => {
+                    handleLikeTappped(post);
+                  }}
+                >
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Ei-like.svg/1200px-Ei-like.svg.png"
+                    alt="Like"
+                  />
+                  <p>Like ({post.likes})</p>
+                </button>
               </div>
             </li>
           ))}
