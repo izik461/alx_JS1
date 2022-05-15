@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Main from 'components/layouts/main/Main';
 import { RestrictedRoute } from 'utils/AuthorisationRoutes';
 import { get } from 'services/firebase';
+import styles from './style.module.css';
 
 function Dashboard() {
   const [posts, setPosts] = useState([]);
@@ -15,18 +16,25 @@ function Dashboard() {
   return (
     <RestrictedRoute>
       <Main>
-        <h1>Hello from Dashboard</h1>
-        <ul>
-          {posts.map((aPost) => (
-            <li key={aPost.id}>
-              <div>
-                <h5>{aPost.author?.name ?? 'NO AUTHOR'}:</h5>
+        <ul className={styles.list}>
+          {posts.map((post) => (
+            <li key={post.id}>
+              <div className={styles.avatarContainer}>
+                <img src={post.author?.avatar} alt="avatar" />
+                <p>{post.author?.name}</p>
               </div>
-              <div>
-                <h3>{aPost.title}</h3>
+              <img src={post.image} alt="post" />
+              <div className={styles.descriptionContainer}>
+                <p className={styles.title}>{post.title}</p>
+                <p className={styles.description}>{post.description}</p>
               </div>
-              <div>{aPost.description}</div>
-              <img src={aPost.image} alt="post" width="250" height="250" />
+              <div className={styles.likesContainer}>
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Ei-like.svg/1200px-Ei-like.svg.png"
+                  alt="Like"
+                />
+                <p>Like ({post.likes})</p>
+              </div>
             </li>
           ))}
         </ul>
