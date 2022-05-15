@@ -13,7 +13,12 @@ import {
   signOut,
 } from 'firebase/auth';
 
-import { getStorage, ref as storageRef, uploadBytes } from 'firebase/storage';
+import {
+  getDownloadURL,
+  getStorage,
+  ref as storageRef,
+  uploadBytes,
+} from 'firebase/storage';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -63,7 +68,12 @@ export const signOutUser = () => signOut(auth);
 const storage = getStorage();
 
 export const addFileToStorage = (file) => {
-  console.log(`TODO: IMPLEMENT ME addFileToStorage ${file}`);
+  console.log(`Adding to storage: ${file.name}`);
   const fileDestination = storageRef(storage, `files/${file.name}`);
-  uploadBytes(fileDestination, file);
+  uploadBytes(fileDestination, file)
+    .then((response) => {
+      console.log(response);
+      return getDownloadURL(fileDestination);
+    })
+    .then((url) => console.log(`URL of uploaded file: ${url}`));
 };
