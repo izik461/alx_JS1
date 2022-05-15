@@ -13,6 +13,7 @@ import Login from 'components/pages/login/Login';
 import Register from 'components/pages/register/Register';
 import RemindPassword from 'components/pages/remind-password/RemindPassword';
 import Home from './components/pages/home/Home';
+import CreatePost from './components/pages/CreatePost/CreatePost';
 
 function Router() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -30,6 +31,7 @@ function Router() {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+          <Route path="createPost" element={<CreatePost />} />
           <Route path="remind-password" element={<RemindPassword />} />
           <Route path="me" element={<MyProfile />} />
           <Route path="*" element={<NotFound />} />

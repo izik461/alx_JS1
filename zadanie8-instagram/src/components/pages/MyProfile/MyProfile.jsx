@@ -39,7 +39,7 @@ function MyProfile() {
   return (
     <Main>
       <form className="form" onSubmit={handleSubmit}>
-        <div>Email: ${currentUser.email}</div>
+        <div>Email: {currentUser.email}</div>
         <InputGroup
           id="name"
           type="text"

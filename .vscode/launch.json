@@ -7,6 +7,14 @@
       "name": "Launch Chrome against localhost",
       "url": "http://localhost:5500",
       "webRoot": "${workspaceFolder}"
+    },
+     {
+        "name": "Attach to Chrome",
+        "type": "pwa-chrome",
+        "request": "attach",
+        "port": 9222,
+        "url": "http://localhost:3000",
+        "webRoot": "${workspaceFolder}"
     }
   ]
 }

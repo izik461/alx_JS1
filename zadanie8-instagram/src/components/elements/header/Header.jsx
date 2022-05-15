@@ -34,6 +34,11 @@ function Header() {
                   />
                 </li>
                 <li>
+                  <Link to="/createPost">
+                    <Button>Create post</Button>
+                  </Link>
+                </li>
+                <li>
                   <Link to="/me">
                     <Button>My profile</Button>
                   </Link>
