@@ -4,7 +4,7 @@ import Main from 'components/layouts/main/Main';
 import InputGroup from 'components/elements/input-group/InputGroup';
 import { useNavigate } from 'react-router-dom';
 import { RestrictedRoute } from 'utils/AuthorisationRoutes';
-import { addFileToStorage } from 'services/firebase';
+import { addFileToStorage, save } from 'services/firebase';
 import { MainContext } from 'contexts/main';
 
 function CreatePost() {
@@ -44,11 +44,22 @@ function CreatePost() {
     // update('currentUser', {
     //   name: nameValue,
     // });
-    addFileToStorage(fileValue).then((url) =>
+    addFileToStorage(fileValue).then((url) => {
       console.log(
         `Uploaded: ${currentUser}, ${titleValue}, ${bodyValue}, ${url}`
-      )
-    );
+      );
+
+      const newPost = {
+        title: titleValue,
+        description: bodyValue,
+        image: url,
+        author: {
+          name: currentUser.displayName,
+          avatar: currentUser.photoURL,
+        },
+      };
+      save('posts', newPost);
+    });
     navigate('/dashboard');
   };
 
