@@ -53,7 +53,7 @@ function CreatePost() {
         title: titleValue,
         description: bodyValue,
         image: url,
-        likes: 0,
+        // empty array is not being created in firebase likes: []
         author: {
           name: currentUser.displayName,
           avatar: currentUser.photoURL,

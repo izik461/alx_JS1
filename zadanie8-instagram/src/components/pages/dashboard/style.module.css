@@ -49,3 +49,7 @@
 .likesContainer img {
   width: 40px;
 }
+
+.likedPost {
+  background-color: blue;
+}
