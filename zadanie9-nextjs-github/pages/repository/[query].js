@@ -4,18 +4,20 @@ import Main from "@/components/layouts/main"
 // import Image from "next/image"
 // import Link from "next/link"
 
-export default function RepositoryDetails({repositoryName, results}) {
+export default function RepositoryDetails({ownerName, repositoryName, results}) {
   return (
     <Main>
       <Head>
         <title>
-          Repository details for {repositoryName}
+          Repository details for {ownerName}-{repositoryName}
           </title>
           </Head>
-          {/* <div className="w-2/3 mx-auto">
-        <h1 className="text-center">Search results for: <span className="font-bold">
-        {repositoryName}</span></h1>
-        <ul className="mt-8">
+          <div className="mx-auto">
+        <h1 className="text-center">Repository details for: <span className="font-bold">
+        {ownerName}-{repositoryName}</span></h1>
+<div className="mt-10">{results.message}</div>
+        
+        {/* <ul className="mt-8">
           {
           results.map(result => {
 return <li key={result.id} className="relative m-2 p-2 rounded border-2 border-gray-200">
@@ -34,8 +36,8 @@ return <li key={result.id} className="relative m-2 p-2 rounded border-2 border-g
           })
         }
           
-        </ul>
-      </div> */}
+        </ul> */}
+      </div>
     </Main>
   )
 }
@@ -43,7 +45,6 @@ return <li key={result.id} className="relative m-2 p-2 rounded border-2 border-g
 export async function getServerSideProps(context) {
   console.log(context.req);
   const [ownerName, repoName] = context.params.query.split('-');
-  console.log('come get some!')
   return fetch(`https://api.github.com/repos/${ownerName}/${repoName}`)
 .then((res) => res.json())
 .then((results => {
@@ -51,7 +52,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       ownerName: ownerName,
-      repositoryName: repositoryName,
+      repositoryName: repoName,
       results: results
     }
   }
@@ -59,7 +60,8 @@ export async function getServerSideProps(context) {
 .catch(error => {
   return {
     props: {
-      repositoryName: context.params.query,
+      ownerName: ownerName,
+      repositoryName: repoName,
       results: 'Could not find results'
     }
   }
