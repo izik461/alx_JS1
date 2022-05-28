@@ -9,12 +9,15 @@ const [searchValue, setSearchValue] = useState('')
 
 const handleSearchValueChanged = (event) => {
   setSearchValue(event.target.value);
-  console.log(`Value changed: `, searchValue );
+  console.log(`Value changed: ${searchValue}`);
 }
 
 const handleButtonClick = (event) => {
   event.preventDefault();
-  router.push('/results')
+  if (searchValue.length <3) {
+    return alert('Please provide a longer name.')
+  }
+  router.push(`/results/${searchValue}`)
 }
 
  return (

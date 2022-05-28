@@ -1,5 +1,5 @@
 import Head from "next/head"
-import Main from "../components/layouts/main"
+import Main from "@/components/layouts/main"
 export default function ResultsPage({title}) {
   return (
     <Main>
@@ -14,9 +14,10 @@ export default function ResultsPage({title}) {
 }
 
 export async function getServerSideProps(context) {
+  console.log(context.req);
   return {
     props: {
-      title: 'TODO:JS title from props for ResultsPage'
+      title: context.params.query // - "query jest sprzęzone z nazwa pliku [query].js"
     }, 
   }
 }
