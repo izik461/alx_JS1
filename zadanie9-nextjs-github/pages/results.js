@@ -1,5 +1,5 @@
 import Head from "next/head"
-import Main from "./components/layouts/main"
+import Main from "../components/layouts/main"
 export default function ResultsPage({title}) {
   return (
     <Main>
