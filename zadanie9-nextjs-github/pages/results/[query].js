@@ -8,7 +8,7 @@ export default function ResultsPage({title}) {
           Results page for {title}
           </title>
           </Head>
-      <h1>Hello results</h1>
+      <h1>Hello results {title}</h1>
     </Main>
   )
 }

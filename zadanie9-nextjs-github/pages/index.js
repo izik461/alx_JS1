@@ -9,7 +9,7 @@ const [searchValue, setSearchValue] = useState('')
 
 const handleSearchValueChanged = (event) => {
   setSearchValue(event.target.value);
-  console.log(`Value changed: ${searchValue}`);
+  //console.log(`Value changed: ${searchValue}`);
 }
 
 const handleButtonClick = (event) => {
@@ -26,10 +26,11 @@ const handleButtonClick = (event) => {
        <title>index page index.js-Head-title</title>
      </Head>
      <h1>Hello index.js</h1>  
-     <div className='m-4'></div>
-<input type="text" placeholder="search for repository" value={searchValue}
+     <div className='border-2 border-gray-500 p-2'>
+<input className="w-full border-2 border-gray-500 rounded p-2"
+  type="text" placeholder="search for repository" value={searchValue}
 onChange={handleSearchValueChanged}></input>
-<button type="button" onClick={handleButtonClick}>Search</button>
+<button type="button" className='rounded bg-red-800 w-full my-3 text-white' onClick={handleButtonClick}>Search</button></div>
      </Main>
  )
 }

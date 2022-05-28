@@ -2,16 +2,17 @@ import Link from "next/link"
 
 export default function Header() {
   return (
-    <header>Header defined in Header.js
+    <header className="bg-gray-600 p-3 text-white text-center">
+      Github searcher by ALX-JS programmers
       <nav>
-      <ul>
+      {/* <ul>
         <li>
           <Link href="/">Index</Link>
         </li>
         <li>
           <Link href="/results">Go to Results from Header</Link>
         </li>
-      </ul>
+      </ul> */}
     </nav>
     </header>
     
