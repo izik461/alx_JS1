@@ -1,15 +1,32 @@
 import Head from 'next/head'
 import Main from '@/components/layouts/main'
-import Link from 'next/link'
+import { useState } from 'react'
+import { useRouter } from 'next/router'
 
 export default function Home() {
+  const router = useRouter()
+const [searchValue, setSearchValue] = useState('')
+
+const handleSearchValueChanged = (event) => {
+  setSearchValue(event.target.value);
+  console.log(`Value changed: `, searchValue );
+}
+
+const handleButtonClick = (event) => {
+  event.preventDefault();
+  router.push('/results')
+}
+
  return (
    <Main>
      <Head>
        <title>index page index.js-Head-title</title>
      </Head>
      <h1>Hello index.js</h1>  
-     <Link href="/results">Go to Results from index.js</Link>
-   </Main>
+     <div className='m-4'></div>
+<input type="text" placeholder="search for repository" value={searchValue}
+onChange={handleSearchValueChanged}></input>
+<button type="button" onClick={handleButtonClick}>Search</button>
+     </Main>
  )
 }
