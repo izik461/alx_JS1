@@ -1,11 +1,13 @@
+import Header from "../sections/header"
+import Footer from "../sections/footer"
 export default function Main( {children}) {
   return (
     <>
-    <header>Header defined in main.js layout</header>
+    <Header />
     <main>
       {children}
     </main>
-    <footer>Footer defined in main.js layout</footer>
+    <Footer />
     </>
   )
 }

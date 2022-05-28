@@ -1,14 +1,15 @@
 import Head from "next/head"
+import Main from "./components/layouts/main"
 export default function ResultsPage({title}) {
   return (
-    <div>
+    <Main>
       <Head>
         <title>
           Results page for {title}
           </title>
           </Head>
       <h1>Hello results</h1>
-    </div>
+    </Main>
   )
 }
 
