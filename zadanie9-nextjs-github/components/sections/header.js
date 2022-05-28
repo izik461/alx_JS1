@@ -9,7 +9,7 @@ export default function Header() {
           <Link href="/">Index</Link>
         </li>
         <li>
-          <Link href="/results">Go to Results</Link>
+          <Link href="/results">Go to Results from Header</Link>
         </li>
       </ul>
     </nav>
