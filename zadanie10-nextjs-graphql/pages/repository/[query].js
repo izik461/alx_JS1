@@ -1,8 +1,5 @@
 import Head from "next/head"
 import Main from "@/components/layouts/main"
-// import fetch from "node-fetch"
-// import Image from "next/image"
-// import Link from "next/link"
 
 export default function RepositoryDetails({ownerName, repositoryName, results}) {
   return (
@@ -58,6 +55,7 @@ export async function getServerSideProps(context) {
   }
 }))
 .catch(error => {
+  console.log('Error catched in ')
   return {
     props: {
       ownerName: ownerName,
