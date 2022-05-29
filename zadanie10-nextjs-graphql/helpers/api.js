@@ -22,7 +22,7 @@ export default function performGraphQLQuery(query) {
       console.log(`Error catched in api.js-performGraphQLQuery - ${error}`)
       return {
         props: {
-          error: `Cannot perform query with params ${context.params.query}`
+          error: `Cannot perform query with params ${query}`
         }
       }
     })

@@ -5,9 +5,7 @@ import Link from "next/link"
 import { getRepositoriesFromSearch } from "@/helpers/queries"
 import performGraphQLQuery from "@/helpers/api"
 export default function ResultsPage({repositoryName, results}) {
-
-  // console.log(`ResultsPage received results: ${results}`)
-  return (
+return (
     <Main>
       <Head>
         <title>
@@ -48,19 +46,19 @@ export async function getServerSideProps(context) {
   try {
     const result = await performGraphQLQuery(query)
     console.log(result)
-
-
+const error = props.error
     return {
       props: {
         title: context.params.query,
-        results: result.data.search.edges
+        results: ["TODO:JS - results from proper return"]
       }
     }
   } catch(error) {
     console.log(`Catched error in results.js - ${error}`);
-    throw error
-    // return {
-    //   props: {}
-    // }
+    return {
+      props: {
+        results: []
+      }
+    }
   }
 }

@@ -18,3 +18,12 @@ export const getRepositoriesFromSearch = query => {
     }
   }`
 }
+
+export const getRepositoryDetails = (userName, repoName) => {
+  return `{
+      repository(name: "${repoName}", owner: "${userName}") {
+        description
+    }
+  }
+    `
+}
