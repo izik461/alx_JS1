@@ -1,9 +1,9 @@
 import Head from "next/head"
 import Main from "@/components/layouts/main"
-import fetch from "node-fetch"
 import Image from "next/image"
 import Link from "next/link"
-import { getRepositoriesFromSearch } from "pages/helpers/queries"
+import { getRepositoriesFromSearch } from "@/helpers/queries"
+import performGraphQLQuery from "@/helpers/api"
 export default function ResultsPage({repositoryName, results}) {
 
   // console.log(`ResultsPage received results: ${results}`)
@@ -43,53 +43,23 @@ return <li key={result.id} className="relative m-2 p-2 rounded border-2 border-g
 }
 
 export async function getServerSideProps(context) {
-  const query = getRepositoriesFromSearch(context.params.query)
+  const query = getRepositoriesFromSearch(context.params.query);
 
-  const token = process.env.GITHUB_TOKEN
+  try {
+    const result = await performGraphQLQuery(query)
+    console.log(result)
 
-  return fetch('https://api.github.com/graphql', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    },
-    body:JSON.stringify({ query })
-  })
-    .then(response => response.json())
-    .then(result => {
-      return {
-        props: {
-          repositoryName: context.params.query,
-          results: result.data.search.edges
-        }
+
+    return {
+      props: {
+        title: context.params.query,
+        results: result.data.search.edges
       }
-    })
-    .catch(() => {
-      return {
-        props: {
-          error: `Cannot perform query with params ${context.params.query}`
-        }
-      }
-    })
-
-//   return fetch(`https://api.github.com/search/repositories?q=${context.params.query}`)
-// .then((res) => res.json())
-// .then((results => {
-//   console.log(results)
-//   return {
-//     props: {
-//       repositoryName: context.params.query,
-//       results: results.items
-//     }
-//   }
-// }))
-// .catch(error => {
-//   return {
-//     props: {
-//       repositoryName: context.params.query,
-//       results: 'Could not find results'
-//     }
-//   }
-// })
-
+    }
+  } catch(error) {
+    console.log(error);
+    return {
+      props: {}
+    }
+  }
 }
