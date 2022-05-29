@@ -42,13 +42,6 @@ export default function Post({ post, morePosts, preview, numberOfLikes }) {
               />
               <PostBody content={post.content} likes={numberOfLikes}/>
             </article>
-            {/* <ul>
-              {
-              likers.map ((aLiker) => {
-                <h1>${aLiker} liked it!</h1>
-              })
-            }
-            </ul> */}
             <SectionSeparator />
             {morePosts && morePosts.length > 0 && (
               <MoreStories posts={morePosts} />
