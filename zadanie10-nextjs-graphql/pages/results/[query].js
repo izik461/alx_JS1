@@ -21,12 +21,12 @@ export default function ResultsPage({repositoryName, results}) {
           results.map(result => {
 return <li key={result.id} className="relative m-2 p-2 rounded border-2 border-gray-200">
 <div className="flex space-between align-center">
-  {result.owner.avatar_url && <Image width="30px" height="30px" className="w-10 rounded" src={result.owner.avatar_url} alt="avatar"/>}
-  <h2 className="text-xl ml-2">{result.owner.login}</h2>
+  {result.node.owner.avatar_url && <Image width="30px" height="30px" className="w-10 rounded" src={result.node.owner.avatar_url} alt="avatar"/>}
+  <h2 className="text-xl ml-2">{result.node.owner.login}</h2>
 </div>
-<p className="mt-4">{result.description} </p>
-<p className="absolute top-2 right-2"> &#9733; {result.stargazers_count}</p>
-<Link href={`/repository/${result.owner.login}-${result.name}`}>
+<p className="mt-4">{result.node.description} </p>
+<p className="absolute top-2 right-2"> &#9733; {result.node.stargazerCount}</p>
+<Link href={`/repository/${result.node.owner.login}-${result.node.name}`}>
   <span className="block text-red-500 text-right pr-2 mt-2 cursor-pointer">
     See details
   </span>
@@ -42,26 +42,51 @@ return <li key={result.id} className="relative m-2 p-2 rounded border-2 border-g
 }
 
 export async function getServerSideProps(context) {
-  console.log(context.req);
-const query = `
+  const query = `{
+    search(query: "${context.params.query}", type: REPOSITORY, first: 5) {
+      edges {
+        node {
+          ... on Repository {
+            id
+            name
+            description
+            owner {
+              login
+              avatarUrl
+            }
+            stargazerCount
+          }
+        }
+      }
+    }
+  }`
 
-`
+  const token = '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'
 
   return fetch('https://api.github.com/graphql', {
     method: 'POST',
-headers: {
-  'Content-Tupe': 'application/json'
-},
-body: JSON.stringify({query})
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body:JSON.stringify({ query })
   })
-  
-
-  // return {
-  //       props: {
-  //         repositoryName: 'sampleTitle',
-  //         results: [],
-  //       }
-  //     }
+    .then(response => response.json())
+    .then(result => {
+      return {
+        props: {
+          repositoryName: context.params.query,
+          results: result.data.search.edges
+        }
+      }
+    })
+    .catch(() => {
+      return {
+        props: {
+          error: `Cannot perform query with params ${context.params.query}`
+        }
+      }
+    })
 
 //   return fetch(`https://api.github.com/search/repositories?q=${context.params.query}`)
 // .then((res) => res.json())
