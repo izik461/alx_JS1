@@ -3,6 +3,7 @@ import Main from "@/components/layouts/main"
 import fetch from "node-fetch"
 import Image from "next/image"
 import Link from "next/link"
+import { getRepositoriesFromSearch } from "pages/helpers/queries"
 export default function ResultsPage({repositoryName, results}) {
 
   // console.log(`ResultsPage received results: ${results}`)
@@ -42,24 +43,7 @@ return <li key={result.id} className="relative m-2 p-2 rounded border-2 border-g
 }
 
 export async function getServerSideProps(context) {
-  const query = `{
-    search(query: "${context.params.query}", type: REPOSITORY, first: 5) {
-      edges {
-        node {
-          ... on Repository {
-            id
-            name
-            description
-            owner {
-              login
-              avatarUrl
-            }
-            stargazerCount
-          }
-        }
-      }
-    }
-  }`
+  const query = getRepositoriesFromSearch(context.params.query)
 
   const token = process.env.GITHUB_TOKEN
 
