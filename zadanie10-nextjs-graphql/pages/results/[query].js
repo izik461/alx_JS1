@@ -61,7 +61,7 @@ export async function getServerSideProps(context) {
     }
   }`
 
-  const token = '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'
+  const token = process.env.GITHUB_TOKEN
 
   return fetch('https://api.github.com/graphql', {
     method: 'POST',
