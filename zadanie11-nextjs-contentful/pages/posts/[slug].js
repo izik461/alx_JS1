@@ -12,7 +12,7 @@ import { getAllPostsWithSlug, getPostAndMorePosts } from '../../lib/api'
 import PostTitle from '../../components/post-title'
 import { CMS_NAME } from '../../lib/constants'
 
-export default function Post({ post, morePosts, preview }) {
+export default function Post({ post, morePosts, preview, numberOfLikes }) {
   const router = useRouter()
 
   if (!router.isFallback && !post) {
@@ -40,8 +40,15 @@ export default function Post({ post, morePosts, preview }) {
                 date={post.date}
                 author={post.author}
               />
-              <PostBody content={post.content} />
+              <PostBody content={post.content} likes={numberOfLikes}/>
             </article>
+            {/* <ul>
+              {
+              likers.map ((aLiker) => {
+                <h1>${aLiker} liked it!</h1>
+              })
+            }
+            </ul> */}
             <SectionSeparator />
             {morePosts && morePosts.length > 0 && (
               <MoreStories posts={morePosts} />
@@ -61,6 +68,8 @@ export async function getStaticProps({ params, preview = false }) {
       preview,
       post: data?.post ?? null,
       morePosts: data?.morePosts ?? null,
+      likers: ["damian", "jerzyn"],
+      numberOfLikes: data?.post.likes ?? 0
     },
   }
 }

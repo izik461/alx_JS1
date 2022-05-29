@@ -12,6 +12,7 @@ author {
   }
 }
 excerpt
+likes
 content {
   json
   links {

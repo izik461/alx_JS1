@@ -14,7 +14,7 @@ const customMarkdownOptions = (content) => ({
   },
 })
 
-export default function PostBody({ content }) {
+export default function PostBody({ content, likes }) {
   return (
     <div className="max-w-2xl mx-auto">
       <div className={markdownStyles['markdown']}>
@@ -23,6 +23,7 @@ export default function PostBody({ content }) {
           customMarkdownOptions(content)
         )}
       </div>
+      <h2>likes: {likes}</h2>
     </div>
   )
 }
