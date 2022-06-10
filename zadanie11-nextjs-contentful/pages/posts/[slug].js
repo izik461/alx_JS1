@@ -12,7 +12,7 @@ import { getAllPostsWithSlug, getPostAndMorePosts } from '../../lib/api'
 import PostTitle from '../../components/post-title'
 import { CMS_NAME } from '../../lib/constants'
 
-export default function Post({ post, morePosts, preview, numberOfLikes }) {
+export default function Post({ post, morePosts, preview, numberOfLikes, likers }) {
   const router = useRouter()
 
   if (!router.isFallback && !post) {
@@ -41,6 +41,15 @@ export default function Post({ post, morePosts, preview, numberOfLikes }) {
                 author={post.author}
               />
               <PostBody content={post.content} likes={numberOfLikes}/>
+              {/* {
+                likers.map((aLiker) => {
+
+                  <ul>
+{aLiker.name} like it - from likers array!
+                  </ul>
+                })
+              } */}
+              <h2>From likers array: {likers.total}</h2>
             </article>
             <SectionSeparator />
             {morePosts && morePosts.length > 0 && (
@@ -61,8 +70,8 @@ export async function getStaticProps({ params, preview = false }) {
       preview,
       post: data?.post ?? null,
       morePosts: data?.morePosts ?? null,
-      likers: ["damian", "jerzyn"],
-      numberOfLikes: data?.post.likes ?? 0
+      numberOfLikes: data?.post?.likes ?? 0,
+      likers: data?.post?.likersCollection ?? []
     },
   }
 }

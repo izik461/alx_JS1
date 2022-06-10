@@ -11,6 +11,12 @@ author {
     url
   }
 }
+commentsCollection(limit: 10) {
+  items {
+    authorName
+    content
+  }
+}
 excerpt
 likes
 content {
