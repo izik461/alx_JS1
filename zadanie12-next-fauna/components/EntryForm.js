@@ -9,6 +9,7 @@ const EntryForm = ({ onSubmit: onSubmitProp }) => {
   const initial = {
     name: '',
     message: '',
+    secretMessage: ''
   }
   const [values, setValues] = useState(initial)
   const [formState, setFormState] = useState('initial')
@@ -60,6 +61,14 @@ const EntryForm = ({ onSubmit: onSubmitProp }) => {
           placeholder="Your message..."
           value={values.message}
           onChange={makeOnChange('message')}
+        />
+        <input
+          required
+          className={cn(inputClasses, 'pl-4 pr-32 flex-grow')}
+          aria-label="Secrete message"
+          placeholder="Your secret message..."
+          value={values.secretMessage}
+          onChange={makeOnChange('secretMessage')}
         />
         <button
           className={cn(
