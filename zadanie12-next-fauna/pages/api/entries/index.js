@@ -1,11 +1,9 @@
-import { listGuestbookEntries, createGuestbookEntry } from '@/lib/fauna'
+import { createGuestbookEntry } from '@/lib/fauna'
 
 export default async function handler(req, res) {
   const handlers = {
     GET: async () => {
-      const entries = await listGuestbookEntries()
-
-      res.json(entries)
+      console.log('TODO:JS')
     },
 
     POST: async () => {

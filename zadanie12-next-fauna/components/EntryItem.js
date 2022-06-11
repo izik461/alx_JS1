@@ -1,4 +1,5 @@
 import formatDate from 'date-fns/format'
+import Link from 'next/link'
 
 const EntryItem = ({ entry }) => (
   <div className="flex flex-col space-y-2">
@@ -9,8 +10,9 @@ const EntryItem = ({ entry }) => (
       <p className="text-sm text-gray-400 dark:text-gray-600">
         {formatDate(new Date(entry.createdAt), "d MMM yyyy 'at' h:mm bb")}
       </p>
+      <Link href={`/entries/${entry._id}`}>Przejdz do wiadomości</Link>
     </div>
   </div>
 )
 
- export default EntryItem
+export default EntryItem
