@@ -1,16 +1,23 @@
-export default function EntryDetails({ entryDetails }) {
+import { getGuestbookEntry } from '@/lib/fauna'
+import MainLayout from '@/components/MainLayout'
+
+export default function EntryPage({ entry }) {
   return (
     <MainLayout>
-      <h1>ENTRY DETAILS PAGE</h1>
-      console.log(`EntryDetails: ${entryDetails}`)
+      <div className='rounded'>
+        <h1 className='text-4xl mb-4'>Hidden fields</h1>
+        <p>name: {entry.name}</p>
+        <p>message: {entry.message}</p>
+        <p>Secret Message: {entry.secretMessage}</p>
+      </div>
     </MainLayout>
   )
 }
 
-export async function getStaticProps({ req }) {
+export async function getServerSideProps(req) {
   return {
     props: {
-      entryDetails: getGuestbookEntryDetails(req.id)
-    },
+      entry:  await getGuestbookEntry(req.params.id)
+    }
   }
 }

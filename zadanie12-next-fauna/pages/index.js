@@ -1,20 +1,20 @@
 import { useState } from 'react'
 import cn from 'classnames'
-// import useSWR, { mutate } from 'swr'
+
 import { listGuestbookEntries } from '@/lib/fauna'
+
+import { putEntry } from '@/services/entry'
+
 import EntryItem from '@/components/EntryItem'
 import EntryForm from '@/components/EntryForm'
 import MainLayout from '@/components/MainLayout'
-import { putEntry } from '@/services/entry'
 
 const Guestbook = ({ entries }) => {
-  const [finalEntries, setFinalEntries] = useState(entries)
+  const [finalEntries, setFinalEntries] = useState(entries);
 
   const onSubmit = async (entryData) => {
-    console.log('tapped on Submit: ', entryData)
     const newEntry = await putEntry(entryData)
-    console.log('NewEntry: ', newEntry)
-    setFinalEntries([newEntry.createGuestbookEntry, ...finalEntries])
+    setFinalEntries([newEntry, ...finalEntries])
   }
 
   return (
@@ -56,3 +56,8 @@ export const getStaticProps = async () => ({
 })
 
 export default Guestbook
+
+// 1. Do forma dodac pole Secret Message
+// 2. Niech pole secret message zapisze sie w bazie danych
+// 3. Zrob w Next.JS dedykowana strone dla Entry
+// 4. Na dedykowanej stronie dla Entry, pokaz zawartosc pola secret message

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState } from 'react'
 import cn from 'classnames'
 
 import SuccessMessage from '@/components/SuccessMessage'
@@ -56,7 +56,7 @@ const EntryForm = ({ onSubmit: onSubmitProp }) => {
         />
         <input
           required
-          className={cn(inputClasses, 'w-1/3 mr-2 px-4')}
+          className={cn(inputClasses, 'pl-4 pr-32 mr-2 flex-grow')}
           aria-label="Your message"
           placeholder="Your message..."
           value={values.message}
@@ -65,7 +65,7 @@ const EntryForm = ({ onSubmit: onSubmitProp }) => {
         <input
           required
           className={cn(inputClasses, 'pl-4 pr-32 flex-grow')}
-          aria-label="Secrete message"
+          aria-label="Your secret message"
           placeholder="Your secret message..."
           value={values.secretMessage}
           onChange={makeOnChange('secretMessage')}

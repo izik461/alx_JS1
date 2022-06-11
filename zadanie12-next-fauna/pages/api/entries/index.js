@@ -1,9 +1,12 @@
-import { createGuestbookEntry } from '@/lib/fauna'
+import { listGuestbookEntries, createGuestbookEntry } from '@/lib/fauna'
 
 export default async function handler(req, res) {
   const handlers = {
     GET: async () => {
-      console.log('TODO:JS')
+
+      const entries = await listGuestbookEntries()
+
+      res.json(entries)
     },
 
     POST: async () => {
@@ -17,7 +20,7 @@ export default async function handler(req, res) {
         createdAt: new Date(),
       })
 
-      res.json(created)
+      res.json(created.createGuestbookEntry)
     },
   }
 

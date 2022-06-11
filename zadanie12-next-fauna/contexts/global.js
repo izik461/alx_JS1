@@ -9,8 +9,11 @@ export const GlobalContext = createContext(INITIAL_STATE)
 export const GlobalProvider = ({ children }) => {
   const [providerState, setProviderState] = useState(INITIAL_STATE)
 
-  const changeTheme = () => {
-    console.log('Change theme')
+  const changeTheme = (theme) => {
+    setProviderState({
+      ...providerState,
+      theme
+    })
   }
 
   return (
