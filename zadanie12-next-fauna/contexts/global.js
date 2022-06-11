@@ -40,6 +40,8 @@ export const GlobalProvider = ({ children }) => {
     ...providerState,
     selectedIds: newSelectedArray
   })
+
+  localStorage.setItem('selectedIds', JSON.stringify(newSelectedArray))
   }
 
   return (
