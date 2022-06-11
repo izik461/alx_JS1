@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import cn from 'classnames'
-import useSWR, { mutate } from 'swr'
+// import useSWR, { mutate } from 'swr'
 import { listGuestbookEntries } from '@/lib/fauna'
 import EntryItem from '@/components/EntryItem'
 import EntryForm from '@/components/EntryForm'
@@ -17,26 +17,34 @@ const putEntry = (payload) =>
     },
   }).then((res) => (res.ok ? res.json() : Promise.reject(res)))
 
-const useEntriesFlow = ({ initialEntries }) => {
-  const { data: entries } = useSWR(ENTRIES_PATH, {
-    initialData: initialEntries,
-  })
+// const useEntriesFlow = ({ initialEntries }) => {
+//   const { data: entries } = useSWR(ENTRIES_PATH, {
+//     initialData: initialEntries,
+//   })
 
-  const onSubmit = async (payload) => {
-    await putEntry(payload)
-    await mutate(ENTRIES_PATH)
+//   const onSubmit = async (payload) => {
+//     await putEntry(payload)
+//     await mutate(ENTRIES_PATH)
+//   }
+
+//   return {
+//     entries,
+//     onSubmit,
+//   }
+// }
+
+const Guestbook = ({ entries }) => {
+  const [finalEntries, setFinalEntries] = useState(entries)
+
+  // const { entries, onSubmit } = useEntriesFlow({
+  //   initialEntries,
+  // })
+
+  const onSubmit = async (entryData) => {
+    console.log('tapped on Submit: ', entryData)
+    const newEntry = await putEntry(entryData)
+    setFinalEntries([newEntry.createGuestbookEntry, ...finalEntries])
   }
-
-  return {
-    entries,
-    onSubmit,
-  }
-}
-
-const Guestbook = ({ initialEntries }) => {
-  const { entries, onSubmit } = useEntriesFlow({
-    initialEntries,
-  })
 
   return (
     <MainLayout>
@@ -61,7 +69,7 @@ const Guestbook = ({ initialEntries }) => {
         <EntryForm onSubmit={onSubmit} />
       </div>
       <div className="mt-4 space-y-8 px-2">
-        {entries?.map((entry) => (
+        {finalEntries?.map((entry) => (
           <EntryItem key={entry._id} entry={entry} />
         ))}
       </div>
@@ -71,7 +79,7 @@ const Guestbook = ({ initialEntries }) => {
 
 export const getStaticProps = async () => ({
   props: {
-    initialEntries: await listGuestbookEntries(),
+    entries: await listGuestbookEntries(),
   },
   revalidate: 1,
 })
