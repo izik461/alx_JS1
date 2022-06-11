@@ -1,4 +1,4 @@
-import { useState, createContext } from "react";
+import { useState, useEffect, createContext } from "react";
 
 const INITIAL_STATE = {
   theme: 'light',
@@ -9,6 +9,17 @@ export const GlobalContext = createContext(INITIAL_STATE)
 
 export const GlobalProvider = ({ children }) => {
   const [providerState, setProviderState] = useState(INITIAL_STATE)
+
+  useEffect(() => {
+    const selectedIdsInLS = JSON.parse(localStorage.getItem('selectedIds') ?? null)
+
+    if(selectedIdsInLS) {
+      setProviderState({
+      ...providerState,
+      selectedIds: selectedIdsInLS
+       })
+    }
+  }, [])
 
   const changeTheme = (theme) => {
     setProviderState({
