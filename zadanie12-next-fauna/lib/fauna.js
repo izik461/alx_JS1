@@ -45,3 +45,24 @@ export const createGuestbookEntry = (newEntry) => {
 
   return graphQLClient.request(mutation, { input: newEntry })
 }
+
+export const getGuestbookEntryDetails = (id) => {
+  const query = gql`
+    query Entries($id: id) {
+      entries(_size: $size) {
+        data {
+          _id
+          _ts
+          name
+          message
+          secretMessage
+          createdAt
+        }
+      }
+    }
+  `
+
+  return graphQLClient
+    .request(query, { id: id })
+    .then(({ entries: { data } }) => data)
+}
