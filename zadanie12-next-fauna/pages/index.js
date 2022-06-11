@@ -13,6 +13,7 @@ const Guestbook = ({ entries }) => {
   const onSubmit = async (entryData) => {
     console.log('tapped on Submit: ', entryData)
     const newEntry = await putEntry(entryData)
+    console.log('NewEntry: ', newEntry)
     setFinalEntries([newEntry.createGuestbookEntry, ...finalEntries])
   }
 
