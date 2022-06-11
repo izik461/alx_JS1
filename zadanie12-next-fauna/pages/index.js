@@ -5,40 +5,10 @@ import { listGuestbookEntries } from '@/lib/fauna'
 import EntryItem from '@/components/EntryItem'
 import EntryForm from '@/components/EntryForm'
 import MainLayout from '@/components/MainLayout'
-
-const ENTRIES_PATH = '/api/entries'
-
-const putEntry = (payload) =>
-  fetch(ENTRIES_PATH, {
-    method: 'POST',
-    body: JSON.stringify(payload),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  }).then((res) => (res.ok ? res.json() : Promise.reject(res)))
-
-// const useEntriesFlow = ({ initialEntries }) => {
-//   const { data: entries } = useSWR(ENTRIES_PATH, {
-//     initialData: initialEntries,
-//   })
-
-//   const onSubmit = async (payload) => {
-//     await putEntry(payload)
-//     await mutate(ENTRIES_PATH)
-//   }
-
-//   return {
-//     entries,
-//     onSubmit,
-//   }
-// }
+import { putEntry } from '@/services/entry'
 
 const Guestbook = ({ entries }) => {
   const [finalEntries, setFinalEntries] = useState(entries)
-
-  // const { entries, onSubmit } = useEntriesFlow({
-  //   initialEntries,
-  // })
 
   const onSubmit = async (entryData) => {
     console.log('tapped on Submit: ', entryData)
