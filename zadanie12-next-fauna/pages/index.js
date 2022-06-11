@@ -8,9 +8,12 @@ import { putEntry } from '@/services/entry'
 import EntryItem from '@/components/EntryItem'
 import EntryForm from '@/components/EntryForm'
 import MainLayout from '@/components/MainLayout'
+import { useContext } from 'react'
+import { GlobalContext } from 'contexts/global';
 
 const Guestbook = ({ entries }) => {
   const [finalEntries, setFinalEntries] = useState(entries);
+  const { state, changeTheme, toggleSelection } = useContext(GlobalContext)
 
   const onSubmit = async (entryData) => {
     const newEntry = await putEntry(entryData)
@@ -40,9 +43,11 @@ const Guestbook = ({ entries }) => {
         <EntryForm onSubmit={onSubmit} />
       </div>
       <div className="mt-4 space-y-8 px-2">
-        {finalEntries?.map((entry) => (
-          <EntryItem key={entry._id} entry={entry} />
-        ))}
+        {finalEntries?.map((entry) => {
+          const isSelected = state.selectedIds.includes(entry._id)
+          // console.log(`Current entry ${entry._id}, isSelected: ${isSelected}`)
+          return <EntryItem key={entry._id} entry={entry} toggleSelection={toggleSelection} isSelected={isSelected} />
+})}
       </div>
     </MainLayout>
   )

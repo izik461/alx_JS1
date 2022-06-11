@@ -1,9 +1,9 @@
 import formatDate from 'date-fns/format'
 import Link from 'next/link'
 
-const EntryItem = ({ entry }) => (
+const EntryItem = ({ entry, toggleSelection, isSelected }) => (
   <div className="flex flex-col space-y-2 p-2">
-    <button className='border-2'>Select</button>
+    <button className='border-2' onClick={() => toggleSelection(entry._id)}>{isSelected ? "Deselect" : "Select"}</button>
     <div className="prose dark:prose-dark w-full">{entry.message}</div>
     <div className="flex items-center space-x-3">
       <p className="text-sm text-gray-500">{entry.name}</p>
