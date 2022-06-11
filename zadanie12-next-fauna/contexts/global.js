@@ -19,17 +19,16 @@ export const GlobalProvider = ({ children }) => {
 
   const toggleSelection = (id) => {
     console.log(`GlobalProvider: ToggleSelection called: ${id}`)
-  
+    const isSelected = providerState.selectedIds.find(element => element === id)
     
-    // console.log(`Current selectedIds: ${tempSelectedIds}`)
-    setProviderState({
-      ...providerState,
-      selectedIds: [...providerState.selectedIds, id]
-    })
+    const newSelectedArray = isSelected
+      ? providerState.selectedIds.filter(elem => elem !== id)
+      : [...providerState.selectedIds, id]
 
-    // providerState.selectedIds.
-    //TODO: add selection removal
-    // setProviderState(providerState)
+  setProviderState({
+    ...providerState,
+    selectedIds: newSelectedArray
+  })
   }
 
   return (
